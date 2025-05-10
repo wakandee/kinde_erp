@@ -1,0 +1,9 @@
+# This file lists entries from .gitignore for tracking in localhost
+# Not required for deployment
+
+/vendor/
+/.env
+.DS_Store
+/node_modules/
+/logs/*.log
+*.sqlite

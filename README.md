@@ -70,3 +70,36 @@ Session management using PHP sessions.
 Frontend views for the login form.
 
 Implement logout functionality.
+
+-----------------------------------------------------------------------------------------------------
+|     PHASE 2 
+-----------------------------------------------------------------------------------------------------
+
+## ✅ Features Implemented (Phase 1)
+- Clean folder structure (controllers, views, models)
+- Basic routing system
+- .env file planned (not yet installed)
+- Sample home page routing
+- Modular configuration system
+- Basic PSR-like autoloading (manual, not via Composer)
+
+## 📁 Folder Structure (So Far)
+See `logs/phase1-log.md` for a full structure breakdown.
+
+---
+
+## 🚧 Features Planned (Phase 2)
+
+This phase aims to build a minimal but functional MVC core system. The following are objectives for Phase 2:
+
+- Introduce base `Controller`, `View`, and `Router` classes under `app/core/`
+- Create a reusable `View::render()` method
+- Standardize layout structure: `views/layouts/`, `views/partials/`
+- Support rendering templates dynamically
+- Improve 404 error handling with fallback templates
+- Setup site-wide header and footer with layout inheritance
+- Implement asset loading (CSS, JS, shared resources)
+- Begin light/dark mode toggle structure (minimal placeholder)
+- Prepare for theme configuration (to be fully implemented in Phase 3)
+
+> 🔖 **Logs** for this phase are maintained under: `logs/phase2-log.md`

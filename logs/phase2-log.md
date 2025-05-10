@@ -17,6 +17,10 @@
 
 ---
 
+
+![Phase 2 Log](kinde_erp/logs/phase2-log.PNG)
+
+
 ### 📦 File & Folder Updates
 
 app/

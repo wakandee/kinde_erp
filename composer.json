@@ -1,7 +1,18 @@
 {
-  "autoload": {
-    "psr-4": {
-      "App\\": "app/"
-    }
-  }
+    "name": "kinde/kinde-erp",
+    "description": "Lightweight, modular ERP system using native PHP with RBAC, MVC architecture, and responsive UI.",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wakandee",
+            "email": "koechallanhi@gmail.com"
+        }
+    ],
+    "require": {}
 }

@@ -1,105 +1,215 @@
 # KIND-E ERP System
 
-Welcome to the KIND-E ERP System. This is a basic ERP framework for managing business processes, built with PHP, following an MVC (Model-View-Controller) architecture. The system is modular, clean, and easy to expand.
-
-## ✅ Features Implemented (Phase 1)
-
-- Clean folder structure (controllers, views, models)
-- Basic routing system to handle dynamic URL dispatching
-- `.env` file integration for environment-specific configurations
-- Sample home page with basic controller and view setup
-- Modular configuration system (`config.php`) for easy maintenance
-- PSR-4 autoloading to autoload classes and ensure proper class loading
-- Error handling for 404 (controller or method not found)
-- Basic home page display with a welcoming message
-
-## 📁 Folder Structure (So Far)
-
-Here’s the folder structure as it currently stands:
-
-kinde_erp
-├── app
-│ ├── controllers # Controller files (e.g., HomeController.php)
-│ ├── models # Model files (for DB interactions, to be added later)
-│ └── views # View files (e.g., home.php)
-├── config # Configuration files (e.g., config.php)
-├── core # Core logic files (e.g., Router.php)
-├── public # Public assets and index.php (entry point)
-├── resources # Frontend resources (e.g., styles, images)
-├── storage # Cache and log files (reserved for later)
-├── tests # Tests folder (for later use)
-├── .env # Environment variables file
-├── .gitignore # Git ignore file
-└── composer.json # Composer dependencies and autoloading configuration (not installed yet)
-
-
-## 📑 Phase 1 Log
-
-For a detailed log of the tasks completed in **Phase 1**, please refer to the [**Phase 1 Log**](phase1-log.md). This log includes a complete breakdown of activities, commits, and steps taken during this phase.
-
-## ⚙️ How to Run Phase 1
-
-1. Clone the repository:
-   ```bash
-   git clone <repo-url>
-   cd <repo-directory> 
-   ```
-
-2. Set up environment variables in .env (database credentials, base URL, etc.).
-
-3. Ensure that .htaccess is configured correctly for URL routing:
-RewriteEngine On
-RewriteRule ^ index.php [QSA,L]
-
-4. Run the application by navigating to the public/ folder:
-	cd public/
-5. Access the application in your browser at http://localhost/<repo-directory>.
-
-## 🔜 Phase 2: Authentication (Login and Session Management)
-
- In Phase 2, we will implement the authentication system, allowing users to log in, manage sessions, and access protected pages.
-
-#### Key features for Phase 2:
-
-User model and database table creation for authentication.
-
-LoginController for handling user authentication.
-
-Session management using PHP sessions.
-
-Frontend views for the login form.
-
-Implement logout functionality.
-
------------------------------------------------------------------------------------------------------
-|     PHASE 2 
------------------------------------------------------------------------------------------------------
-
-## ✅ Features Implemented (Phase 1)
-- Clean folder structure (controllers, views, models)
-- Basic routing system
-- .env file planned (not yet installed)
-- Sample home page routing
-- Modular configuration system
-- Basic PSR-like autoloading (manual, not via Composer)
-
-## 📁 Folder Structure (So Far)
-See `logs/phase1-log.md` for a full structure breakdown.
+Welcome to the KIND-E ERP System — a modular, clean, and expandable ERP framework built in native PHP using the MVC (Model-View-Controller) architecture.
 
 ---
 
-## 🚧 Features Planned (Phase 2)
+## ✅ Features Implemented
 
-This phase aims to build a minimal but functional MVC core system. The following are objectives for Phase 2:
+### Phase 1 – Core Setup
 
-- Introduce base `Controller`, `View`, and `Router` classes under `app/core/`
-- Create a reusable `View::render()` method
-- Standardize layout structure: `views/layouts/`, `views/partials/`
-- Support rendering templates dynamically
-- Improve 404 error handling with fallback templates
-- Setup site-wide header and footer with layout inheritance
-- Implement asset loading (CSS, JS, shared resources)
-- Begin light/dark mode toggle structure (minimal placeholder)
-- Prepare for theme configuration (to be fully implemented in Phase 3)
+- Clean folder structure (`controllers`, `views`, `models`)
+- Basic routing system for dynamic URL dispatching
+- `.env` file support for configuration
+- Sample home page with routing, controller, and view
+- Modular configuration system (`config.php`)
+- Manual PSR-like class autoloading structure
+- 404 error handling
+- HomeController and basic display setup
 
-> 🔖 **Logs** for this phase are maintained under: `logs/phase2-log.md`
+### Phase 2 – MVC Base & Autoloading Enhancement
+
+- Created base `Controller`, `View`, and improved `Router` classes
+- Implemented layout rendering via `View::render()`
+- Views now support template inheritance: layouts & partials (`main`, `header`, `footer`)
+- Added support for CSS and JS asset loading
+- Light/dark theme toggle placeholder using JavaScript
+- Composer initialized with PSR-4 autoloading
+- All classes updated to use PSR-4 namespaces
+
+---
+
+## 📁 Folder Structure
+
+kinde_erp
+├── app/
+│ ├── controllers/ # e.g., HomeController.php
+│ ├── core/ # Base MVC logic: Controller.php, Router.php, View.php
+│ └── views/
+│ ├── home.php
+│ ├── layouts/ # e.g., main.php
+│ └── partials/ # e.g., header.php, footer.php
+├── config/ # config.php and environment settings
+├── public/ # Public entry point and assets
+│ └── assets/
+│ └── css/style.css
+├── logs/ # Phase logs
+│ ├── phase1-log.md
+│ └── phase2-log.md
+├── resources/ # Frontend resources (images, etc.)
+├── storage/ # Reserved for logs/cache
+├── tests/ # Unit/integration tests
+├── .env # Environment variables
+├── .gitignore
+├── composer.json # Composer config (autoloading via PSR-4)
+└── index.php # Public entry point
+
+
+---
+
+## 📑 Phase Logs
+
+- [Phase 1 Log](logs/phase1-log.md)
+- [Phase 2 Log](logs/phase2-log.md)
+
+---
+
+## ⚙️ How to Run
+
+1. Clone the repository:
+
+```bash
+git clone <repo-url>
+cd <repo-directory>
+```
+2. Set up your .env file with database config, base URL, etc.
+
+3. Ensure .htaccess exists in the public/ directory:
+
+RewriteEngine On
+RewriteRule ^ index.php [QSA,L]
+
+4. Install Composer dependencies:
+
+```
+composer install
+```
+
+5. Navigate to the public folder:
+```
+cd public/
+```
+
+6. Run on browser:
+
+http://localhost/<repo-directory>
+
+
+### 🔐 Authentication (Upcoming in Phase 3)
+- User login and logout
+- Session management
+- Protected routes (middleware)
+- Basic user table and model
+
+
+
+### ✅ Updated `logs/phase2-log.md`
+
+# 🚀 Phase 2 Log - MVC Base System
+
+## 📆 Started: 2025-05-10  
+## 🔁 Status: In Progress  
+## 🔍 Phase Lead: Allan Kipruto  
+
+---
+
+### ✅ Objectives
+
+- Implement base MVC structure
+- Create `View::render()` with layout support
+- Setup layout and partials (`header`, `footer`)
+- Improve 404 error handling
+- Enable CSS/JS asset support
+- Add light/dark mode toggle placeholder
+- Integrate Composer with PSR-4 autoloading
+
+---
+
+### 📂 File & Folder Updates
+
+app/
+├── controllers/
+│   └── HomeController.php ← Uses PSR-4 namespace
+├── core/
+│   ├── Controller.php ← Shared controller logic
+│   ├── Router.php ← Enhanced routing with 404 fallback
+│   └── View.php ← Layout + template rendering logic
+views/
+├── home.php ← Rendered via main layout
+├── layouts/
+│   └── main.php ← Master layout file
+├── partials/
+│   ├── header.php ← Header (with dark/light toggle)
+│   └── footer.php ← Footer section
+public/
+├── assets/
+│   └── css/
+│       └── style.css ← Contains minimal light/dark styles
+logs/
+├── phase1-log.md
+└── phase2-log.md
+
+---
+
+### 🗂 Task Log (Chronological)
+
+| Date       | Task                                               | Status     |
+|------------|----------------------------------------------------|------------|
+| 2025-05-10 | Created `phase-2-mvc-base` branch                  | ✅ Done     |
+| 2025-05-10 | Updated README with Phase 2 objectives             | ✅ Done     |
+| 2025-05-10 | Created `logs/phase2-log.md`                       | ✅ Done     |
+| 2025-05-10 | Started building `View` base class                 | ✅ Done     |
+| 2025-05-10 | Implemented `Controller.php`                       | ✅ Done     |
+| 2025-05-10 | Updated `Router.php` with fallback to 404 view     | ✅ Done     |
+| 2025-05-10 | Built layout structure: `layouts/`, `partials/`    | ✅ Done     |
+| 2025-05-10 | Added light/dark mode placeholder in header        | ✅ Done     |
+| 2025-05-10 | Initialized Composer and PSR-4 config              | ✅ Done     |
+| 2025-05-10 | Ran `composer dump-autoload`                       | ✅ Done     |
+| 2025-05-10 | Refactored classes to use namespaces               | ✅ Done     |
+
+---
+
+## 🛠 How to Run
+
+1. Start XAMPP or your local Apache server.
+2. Navigate to `http://localhost/kinde_erp/public/`.
+3. The home page should render through the main layout.
+4. Use the toggle button in the header to test dark/light placeholder.
+
+---
+
+## 📦 Composer Integration (PSR-4)
+
+- Composer initialized via `composer init`
+- Autoloading setup:
+
+```json
+"autoload": {
+    "psr-4": {
+        "Kinde\\KindeErp\\": "app/"
+    }
+}
+```
+
+- Required command run:
+```
+composer dump-autoload
+```
+## 📌 Next Phase
+
+Prepare for user login system (Phase 3):
+
+AuthController
+
+Login form and validation
+
+Session-based middleware
+
+User table and model
+
+## ✅ Routing & Controller Setup Finalization
+
+- Routing is now handled by `App\Core\Router` loaded in `public/index.php`
+- All controllers follow PSR-4 autoloading and are namespaced under `Kinde\KindeErp\Controllers`
+- Views are rendered via `App\Core\Controller::view()` and pass a `$base_url` to layout
+- Assets (CSS/JS) are correctly loaded from `/public/assets/` via `config.php` base URL

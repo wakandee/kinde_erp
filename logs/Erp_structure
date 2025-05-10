@@ -1,0 +1,49 @@
+kinde_erp/
+├── app/
+│   ├── Controllers/
+│   │   └── HomeController.php
+│   ├── Core/
+│   │   ├── Controller.php
+│   │   ├── Router.php
+│   │   └── View.php
+│   ├── models/
+│   └── views/
+│       ├── layouts/
+│       │   └── main.php
+│       ├── partials/
+│       │   ├── footer.php
+│       │   └── header.php
+│       └── home.php
+├── config/
+│   ├── config.php
+│   └── database.php
+├── core/
+│   └── Router.php ❌ (merged into app/Core/Router.php – safe to delete)
+├── database/
+├── logs/
+│   ├── phase1-log.md ✅ (moved here)
+│   └── phase2-log.md ✅ (finalized below)
+├── public/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── main.js
+│   ├── .htaccess
+│   └── index.php
+├── resources/
+├── storage/
+│   ├── cache/
+│   └── logs/
+├── tests/
+├── vendor/
+├── .env
+├── .gitignore
+├── .gitignore-tracker.txt
+├── .gitignored_files.md
+├── composer.json
+├── env.php
+├── logs/
+│   ├── phase1-log.md ✅
+│   └── phase2-log.md ✅
+└── README.md ✅ (updated)

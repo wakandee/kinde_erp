@@ -11,3 +11,6 @@ return [
     'name' => 'kinde_erp_session'
   ]
 ];
+
+
+?>

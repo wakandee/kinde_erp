@@ -18,7 +18,7 @@
 ---
 
 
-![Phase 2 Log](logs/phase2-log.PNG)
+![Phase 2 Log](logs/phase2-log.png)
 
 
 ### 📦 File & Folder Updates

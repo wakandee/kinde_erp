@@ -128,7 +128,7 @@ http://localhost/<repo-directory>
 - Integrate Composer with PSR-4 autoloading
 
 ---
-![Phase 2 Log](kinde_erp/logs/phase2-log.PNG)
+![Phase 2 Log](logs/phase2-log.PNG)
 
 ### 📂 File & Folder Updates
 

@@ -94,3 +94,9 @@ kinde_erp/
 ├── composer.json
 ├── env.php
 └── README.md
+
+### Step 2: Introduced Central Routing File
+
+- Created `routes/web.php` to define all app routes.
+- Updated `public/index.php` to require the new routing file.
+- Ensured Router class is PSR-4 compliant via Composer autoloading.

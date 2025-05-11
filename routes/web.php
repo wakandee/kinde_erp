@@ -1,9 +1,22 @@
 <?php
-
 use App\Core\Router;
 
-// Ensure the router object is passed correctly
-$router->get('/', 'HomeController@index');  // Home route
+// Home
+$router->get('/', 'HomeController@index');
+
+// Auth
+$router->get('/login', 'AuthController@showLoginForm');
+$router->post('/login', 'AuthController@login');
+$router->get('/logout', 'AuthController@logout');
+
+// Password reset
+$router->get('/forgot-password', 'AuthController@showForgotForm');
+$router->post('/forgot-password', 'AuthController@sendResetLink');
+$router->get('/reset-password', 'AuthController@showResetForm');
+$router->post('/reset-password', 'AuthController@resetPassword');
+
+// ... other routes ...
+
 
 // Add additional routes below as needed
 // Example: $router->get('/about', 'AboutController@show');

@@ -1,0 +1,43 @@
+#### Phase 3 – Authentication & User Management Objectives
+
+1. **Secure Login/Logout**  
+   - Email/username + password  
+   - Duplicate-login prevention  
+   - Auto-logout after 5 minutes of inactivity
+
+2. **Admin Console CRUD**  
+   - Departments  
+   - Designations  
+   - Users (including `phone_number`; unique `email`/`username`)
+
+3. **Password & Recovery Flows**  
+   - Forgot-password (email token)  
+   - Reset-password  
+   - Change-password in profile
+
+4. **UI Preferences & Theming**  
+   - Light-theme variants (blue, green, pink, etc)  
+   - One standard dark theme 
+   - Stored in `ui_preferences.theme`
+   - lets have a standard one, sidebar, header, and footer and content at the center. with phome-first design first
+
+6. **Navigation Tabs**  
+   - **Users** • **Departments** • **Designations**  
+   - **My Profile** • **Themes** • **Layouts**
+
+---
+
+#### Phase 3 Deliverables
+
+- **Migrations**: `users` (add `phone_number`), `departments`, `designations`, `ui_preferences`, `password_resets`.  
+- **Models**: `App\Models\User`, `Department`, `Designation`, `UIPreference`, `PasswordReset`.  
+- **Controllers**: `AuthController`, `UserController`, `DepartmentController`, `DesignationController`, `ProfileController`.  
+- **Middleware**: `Auth` (route guard, duplicate-login, inactivity timeout).  
+- **Helpers**: `SessionHelper` (`start`, `get`, `set`, `destroy`, `checkActivity`).  
+- **Views**:  
+  - `auth/login.php`, `auth/forgot_password.php`, `auth/reset_password.php`  
+  - `users/index.php`, `users/form.php`  
+  - `departments/*`, `designations/*`  
+  - `profile.php`, `themes.php`, `layouts.php`  
+- **Layout & Navigation**: Updated `header.php`/`sidebar.php` to include the new tabs + responsive mobile collapse.  
+- **CSS**: Variables for light-theme variants, standard dark theme, and layout-specific styles.  

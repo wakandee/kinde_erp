@@ -17,12 +17,10 @@ kinde_erp/
 ├── config/
 │   ├── config.php
 │   └── database.php
-├── core/
-│   └── Router.php ❌ (merged into app/Core/Router.php – safe to delete)
 ├── database/
 ├── logs/
-│   ├── phase1-log.md ✅ (moved here)
-│   └── phase2-log.md ✅ (finalized below)
+│   ├── phase1-log.md 
+│   └── phase2-log.md 
 ├── public/
 │   ├── assets/
 │   │   ├── css/

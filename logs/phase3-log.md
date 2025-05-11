@@ -100,3 +100,16 @@ kinde_erp/
 - Created `routes/web.php` to define all app routes.
 - Updated `public/index.php` to require the new routing file.
 - Ensured Router class is PSR-4 compliant via Composer autoloading.
+
+USE erp_db;
+
+INSERT INTO users (name, email, username, password, phone_number, designation_id, department_id)
+VALUES (
+  'Test User',
+  'test@example.com',
+  'testuser',
+  '$2y$10$vkdn.L7B6JttChlhQTKD6.JQdCOau2DAjDaMdDqOSDFxlslAx/.Vu',
+  '0123456789',
+  NULL,
+  NULL
+);

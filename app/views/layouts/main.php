@@ -7,13 +7,13 @@
     <script src="<?= $base_url ?>assets/js/main.js"></script>
 </head>
 <body class="light-mode">
-    <?php require_once "../app/views/partials/header.php"; ?>
+    <?php require_once __DIR__ . '/../partials/header.php'; ?>
 
     <main class="container">
-        <?php require_once $viewFile; ?>
+        <?= $content; ?>
     </main>
 
-    <?php require_once "../app/views/partials/footer.php"; ?>
+    <?php require_once __DIR__ . '/../partials/footer.php'; ?>
 
 </body>
 </html>

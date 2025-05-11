@@ -1,60 +1,74 @@
 <?php
-
 namespace App\Core;
 
 class Router
 {
-    private $routes = [];
+    private array $routes = [];
 
-    // Non-static method for GET route registration
-    public function get($uri, $action)
+    /**
+     * Register a GET route.
+     */
+    public function get(string $uri, string $action): void
     {
-        $this->routes['GET'][$uri] = $action;
+        $this->routes['GET'][$this->normalize($uri)] = $action;
     }
 
-    // Non-static method for POST route registration
-    public function post($uri, $action)
+    /**
+     * Register a POST route.
+     */
+    public function post(string $uri, string $action): void
     {
-        $this->routes['POST'][$uri] = $action;
+        $this->routes['POST'][$this->normalize($uri)] = $action;
     }
 
-    // Method to dispatch the URL
-    public function dispatch($url)
+    /**
+     * Dispatch the request based solely on the URL passed in from index.php.
+     * 
+     * @param string $uriArg  The value of $_GET['url'] (e.g. "departments")
+     */
+    public function dispatch(string $uriArg): void
     {
-        $url = trim($url, '/');  // Clean the URL
-        $url = $url !== '' ? explode('/', $url) : [];  // Split the URL into segments
+        $method = $_SERVER['REQUEST_METHOD'];
+        // Normalize the incoming URI (strip slashes, ensure leading slash)
+        $uri = $this->normalize('/' . ($uriArg ?: ''));
 
-        $controllerName = isset($url[0]) && $url[0] !== '' ? ucfirst($url[0]) . 'Controller' : 'HomeController';
-        $method = $url[1] ?? 'index';
-        $params = array_slice($url, 2);
+        // Match route
+        $action = $this->routes[$method][$uri] ?? null;
 
-        // Determine the controller's class and file path
-        $controllerClass = "App\\Controllers\\$controllerName";
-        $controllerPath = __DIR__ . "/../Controllers/$controllerName.php";
-
-        if (file_exists($controllerPath)) {
-            require_once $controllerPath;
-
-            if (class_exists($controllerClass)) {
-                $controllerObj = new $controllerClass();
-
-                if (method_exists($controllerObj, $method)) {
-                    call_user_func_array([$controllerObj, $method], $params);
-                    return;
-                } else {
-                    http_response_code(404);
-                    echo "404 - Method '$method' not found in controller '$controllerClass'.";
-                    return;
-                }
-            } else {
-                http_response_code(404);
-                echo "404 - Controller class '$controllerClass' not found.";
-                return;
-            }
-        } else {
+        if (! $action) {
             http_response_code(404);
-            echo "404 - Controller file '$controllerPath' not found.";
+            echo "404 - Route {$uri} not found.";
             return;
         }
+
+        // Parse controller and method
+        [$controllerName, $methodName] = explode('@', $action, 2);
+        $controllerClass = "App\\Controllers\\{$controllerName}";
+
+        if (! class_exists($controllerClass)) {
+            http_response_code(500);
+            echo "Controller {$controllerClass} not found.";
+            return;
+        }
+
+        $controller = new $controllerClass();
+
+        if (! method_exists($controller, $methodName)) {
+            http_response_code(500);
+            echo "Method {$methodName} not found in {$controllerClass}.";
+            return;
+        }
+
+        // Call the method (no parameters for now)
+        $controller->{$methodName}();
+    }
+
+    /**
+     * Normalize a URI: remove trailing slash, ensure leading slash.
+     */
+    private function normalize(string $uri): string
+    {
+        $uri = '/' . ltrim($uri, '/');
+        return rtrim($uri, '/');
     }
 }

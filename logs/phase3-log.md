@@ -152,3 +152,6 @@ Step 10: Implemented Flash Messaging System
 - Updated SessionHelper to manage flash messages
 - Integrated flash messages in AuthController (login, logout, password reset)
 - Updated layout views to display flash messages
+
+
+Add flash messaging system for login, logout, and reset password - Implemented flash method in SessionHelper - Display success error messages in layout views - Updated AuthController to use flash messages for login, logout, and reset password actions

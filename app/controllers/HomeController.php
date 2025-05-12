@@ -3,18 +3,19 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\SessionHelper;
+use App\Middleware\Auth;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        Auth::handle(); // Centralized authentication check
+    }
+
     public function index()
     {
-        // Ensure only logged-in users can access home
-        if (!SessionHelper::get('user_id')) {
-            header("Location: {$data['base_url']}login");
-            exit;
-        }
-
-        $this->view('home'); // 'base_url' is automatically injected from Controller
+        $this->view('home'); // View gets 'base_url' from Controller
     }
 }
+
+Implement centralized authorization middleware - Added Auth middleware to protect routes - Applied Auth::handle() in HomeController and DepartmentController - Ensured only logged-in users access protected pages

@@ -1,3 +1,5 @@
+<?php use App\Core\SessionHelper; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,5 +12,12 @@
     <main class="auth-container">
         <?= $content; ?>
     </main>
+    <?php if ($msg = \App\Core\SessionHelper::flash('success')): ?>
+        <div class="alert alert-success"><?= $msg ?></div>
+    <?php endif; ?>
+    <?php if ($msg = \App\Core\SessionHelper::flash('error')): ?>
+        <div class="alert alert-danger"><?= $msg ?></div>
+    <?php endif; ?>
+
 </body>
 </html>

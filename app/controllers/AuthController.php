@@ -42,14 +42,18 @@ class AuthController extends Controller
         SessionHelper::set('user_id', $user->id);
         SessionHelper::set('username', $user->username);
 
+        SessionHelper::flash('success', 'Welcome back, ' . $user->username . '!');
         header("Location: {$this->baseUrl}");
         exit;
+
+    
     }
 
     public function logout()
     {
         SessionHelper::start();
         SessionHelper::destroy();
+        SessionHelper::flash('success', 'You have been logged out.');
         header("Location: {$this->baseUrl}login");
         exit;
     }
@@ -105,6 +109,7 @@ class AuthController extends Controller
         ]);
 
         $reset->markUsed();
+        SessionHelper::flash('success', 'Password updated successfully. You can now log in.');
         header("Location: {$this->baseUrl}login");
         exit;
     }

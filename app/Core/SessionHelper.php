@@ -44,4 +44,21 @@ class SessionHelper
         }
         $_SESSION['last_activity'] = $now;
     }
+
+    public static function flash(string $key, ?string $message = null)
+    {
+        if (!isset($_SESSION['flash'])) {
+            $_SESSION['flash'] = [];
+        }
+
+        if ($message !== null) {
+            $_SESSION['flash'][$key] = $message;
+        } else {
+            $msg = $_SESSION['flash'][$key] ?? null;
+            unset($_SESSION['flash'][$key]);
+            return $msg;
+        }
+    }
+
+
 }

@@ -145,3 +145,10 @@ feat(auth): Fix login issue using password_verify and session handling
 - Verified controller route definitions and cleaned up switch action for theme
 
 This completes Step 7: Secure user login with hashed password support.
+
+
+Step 10: Implemented Flash Messaging System
+- Added flash messaging system to display success and error messages
+- Updated SessionHelper to manage flash messages
+- Integrated flash messages in AuthController (login, logout, password reset)
+- Updated layout views to display flash messages

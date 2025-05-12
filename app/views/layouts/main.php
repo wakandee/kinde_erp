@@ -1,3 +1,5 @@
+<?php use App\Core\SessionHelper; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,23 +14,31 @@
     $isLoggedIn = isset($_SESSION['user_id']);
 ?>
 <body class="<?= htmlspecialchars($theme . '-mode', ENT_QUOTES, 'UTF-8') ?>">
+    <!-- Add flash -->
+    <?php if ($msg = SessionHelper::flash('success')): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
 
-<?php //var_dump($_SESSION); //exit;
+    <?php if ($msg = SessionHelper::flash('error')): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
 
-if ($isLoggedIn):?>
-    <?php require_once __DIR__ . '/../partials/header.php'; ?>
-    <div class="main-container">
-        <?php require_once __DIR__ . '/../partials/sidebar.php'; ?>
-        <main class="content">
+
+    <?php //var_dump($_SESSION); //exit;
+    if ($isLoggedIn):?>
+        <?php require_once __DIR__ . '/../partials/header.php'; ?>
+        <div class="main-container">
+            <?php require_once __DIR__ . '/../partials/sidebar.php'; ?>
+            <main class="content">
+                <?= $content; ?>
+            </main>
+        </div>
+        <?php require_once __DIR__ . '/../partials/footer.php'; ?>
+    <?php else: ?>
+        <main class="login-container">
             <?= $content; ?>
         </main>
-    </div>
-    <?php require_once __DIR__ . '/../partials/footer.php'; ?>
-<?php else: ?>
-    <main class="login-container">
-        <?= $content; ?>
-    </main>
-<?php endif; ?>
+    <?php endif; ?>
 
 </body>
 </html>

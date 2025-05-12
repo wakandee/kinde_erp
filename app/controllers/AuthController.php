@@ -16,11 +16,16 @@ class AuthController extends Controller
         $config = require __DIR__ . '/../../config/config.php';
         $this->baseUrl = $config['base_url'];
     }
-
     public function showLoginForm(array $data = [])
     {
-        $this->view('auth/login', $data);
+        $this->view('auth/login', $data, 'login');
     }
+
+
+    // public function showLoginForm(array $data = [])
+    // {
+    //     $this->view('auth/login', $data);
+    // }
 
     public function login()
     {

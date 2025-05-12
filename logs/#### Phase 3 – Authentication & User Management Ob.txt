@@ -41,3 +41,107 @@
   - `profile.php`, `themes.php`, `layouts.php`  
 - **Layout & Navigation**: Updated `header.php`/`sidebar.php` to include the new tabs + responsive mobile collapse.  
 - **CSS**: Variables for light-theme variants, standard dark theme, and layout-specific styles.  
+
+kinde_erp/
+├── app/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── UserController.php
+│   │   ├── DepartmentController.php
+│   │   ├── DesignationController.php
+│   │   ├── ProfileController.php
+│   │   └── ThemeController.php
+│   ├── Core/
+│   │   ├── App.php
+│   │   ├── Controller.php
+│   │   ├── Middleware.php
+│   │   ├── Router.php
+│   │   ├── View.php
+│   │   └── SessionHelper.php ✅ (NEW)
+│   ├── Middleware/
+│   │   ├── Auth.php
+│   │   ├── PreventDuplicateLogin.php
+│   │   └── InactivityLogout.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Department.php
+│   │   ├── Designation.php
+│   │   ├── UIPreference.php
+│   │   └── PasswordReset.php
+│   └── Views/
+│       ├── auth/
+│       │   ├── login.php
+│       │   ├── forgot_password.php
+│       │   └── reset_password.php
+│       ├── users/
+│       │   ├── index.php
+│       │   └── form.php
+│       ├── departments/
+│       │   ├── index.php
+│       │   └── form.php
+│       ├── designations/
+│       │   ├── index.php
+│       │   └── form.php
+│       ├── profile/
+│       │   └── index.php
+│       ├── themes/
+│       │   └── index.php
+│       ├── layouts/
+│       │   └── main.php
+│       ├── partials/
+│       │   ├── header.php
+│       │   ├── sidebar.php ✅ (NEW)
+│       │   └── footer.php
+│       └── home.php
+├── config/
+│   ├── config.php
+│   └── database.php
+├── database/
+│   ├── migrations/ ✅ (NEW)
+│   │   ├── create_users_table.php
+│   │   ├── create_departments_table.php
+│   │   ├── create_designations_table.php
+│   │   ├── create_ui_preferences_table.php
+│   │   └── create_password_resets_table.php
+│   └── seeds/ ✅ (optional later)
+├── logs/
+│   ├── phase1-log.md 
+│   ├── phase2-log.md 
+│   └── phase3-log.md ✅ (NEW)
+├── public/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── style.css
+│   │   │   └── themes.css ✅ (NEW)
+│   │   └── js/
+│   │       └── main.js
+│   ├── .htaccess
+│   └── index.php
+├── routes/
+│   └── web.php ✅ (NEW)
+├── storage/
+│   ├── cache/
+│   └── logs/
+├── tests/
+├── vendor/
+├── .env
+├── .gitignore
+├── .gitignore-tracker.txt
+├── .gitignored_files.md
+├── composer.json
+├── env.php
+└── README.md
+
+| Step | Task Description                        | Status         | Notes |
+| ---- | --------------------------------------- | -------------- | ----- |
+| 1    | Create login page and form              | ✅ Completed   |       |
+| 2    | Submit login form to controller         | ✅ Completed   |       |
+| 3    | Validate credentials and login logic    | ✅ Completed   |       |
+| 4    | Redirect on success/failure             | ✅ Completed   |       |
+| 5    | Implement session helper (auth)         | ✅ Completed   |       |
+| 6    | Create protected `/home` route          | ✅ Completed   |       |
+| 7    | Create View & Layout class              | ✅ Completed   |       |
+| 8    | Display home page with welcome + logout | ✅ Completed   |       |
+| 9    | Logout route and logic                  | 🔄 In Progress |       |
+| 10   | Flash messaging (e.g., login errors)    | 🔲 Pending     |       |
+| 11   | General route cleanup & security check  | 🔲 Pending     |       |

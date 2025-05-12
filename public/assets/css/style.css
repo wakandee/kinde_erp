@@ -1,3 +1,19 @@
+
+.container {
+    padding: 20px;
+}
+
+header, footer {
+    background: #eee;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Dark mode JS toggle script (to be added inline or separate file) */
+
+
+
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -14,15 +30,77 @@ body.dark-mode {
     color: #fff;
 }
 
+/* Layout */
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
 
-.container {
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
     padding: 20px;
 }
 
-header, footer {
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Header */
+header {
     background: #eee;
     padding: 10px;
     text-align: center;
+    position: relative;
 }
 
-/* Dark mode JS toggle script (to be added inline or separate file) */
+header .logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Login Page */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.login-form h2 {
+    text-align: center;
+}
+
+.login-form .error {
+    color: red;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+}
+

@@ -1,6 +1,8 @@
 <?php $title = "Welcome to Kinde ERP"; ?>
 
-<section>
-    <h2>Home Page</h2>
-    <p>This is the sample homepage rendered through the layout.</p>
-</section>
+<div class="container">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>You are logged in.</p>
+
+    <a href="<?= $base_url ?>logout" class="btn btn-danger">Logout</a>
+</div>

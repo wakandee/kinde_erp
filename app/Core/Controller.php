@@ -1,14 +1,21 @@
 <?php
 namespace App\Core;
 
-class Controller {
-    /**
-     * Shortcut to render a view via the View class.
-     *
-     * @param string $view  View path under app/Views (e.g. 'auth/login')
-     * @param array  $data  Data to pass to the view
-     */
-    protected function view(string $view, array $data = []): void {
+use App\Core\View;
+use App\Core\SessionHelper;
+
+abstract class Controller
+{
+    public function __construct()
+    {
+        // Ensure session is always started for each controller
+        SessionHelper::start();
+    }
+
+    protected function view(string $view, array $data = []): void
+    {
+        // Inject base_url globally into views
+        $data['base_url'] = $_ENV['BASE_URL'] ?? $_SESSION['base_url'] ?? '/'; // fallback
         View::render($view, $data);
     }
 }

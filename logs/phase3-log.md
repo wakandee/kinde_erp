@@ -134,3 +134,14 @@ Logout
 Visit /logout.
 
 Try accessing /users again — you must be sent back to /login.
+
+
+feat(auth): Fix login issue using password_verify and session handling
+
+- Implemented proper password hashing with password_verify
+- Resolved login form error showing "Invalid credentials"
+- Ensured only one session_start() call is active to prevent warnings
+- Added fallback for missing HTTP_REFERER in theme switching (to be revisited)
+- Verified controller route definitions and cleaned up switch action for theme
+
+This completes Step 7: Secure user login with hashed password support.

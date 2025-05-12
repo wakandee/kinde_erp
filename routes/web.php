@@ -63,4 +63,7 @@ $router->post('/profile/change-password','ProfileController@changePassword');
 // ─── UI Themes ─────────────────────────────────────────────────────────────────
 // View theme options & save selection
 $router->get('/themes',                  'ThemeController@index');
-$router->post('/themes',                 'ThemeController@update');
+$router->get('/theme/switch/:theme', 'ThemeController@switch');
+//$router->get('/theme/switch/{theme}', 'ThemeController@switch');
+
+//$router->post('/themes',                 'ThemeController@update');

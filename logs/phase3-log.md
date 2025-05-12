@@ -113,3 +113,24 @@ VALUES (
   NULL,
   NULL
 );
+
+
+
+7.4 Verify
+Login
+
+Visit /login, enter testuser / Password123.
+
+Should redirect to /.
+
+Access Protected Route
+
+Go to /users (or any protected controller).
+
+If logged in, you see the page; otherwise you’re redirected to /login.
+
+Logout
+
+Visit /logout.
+
+Try accessing /users again — you must be sent back to /login.

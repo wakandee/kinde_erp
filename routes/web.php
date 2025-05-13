@@ -75,7 +75,12 @@ $router->get('/theme/switch/:theme', 'ThemeController@switch');
 
 // ─── Activity Tracker ────────────────────────────────────────────────────────
 // View, add and manage activites
-$router->get('/tracker',                 'TrackerController@index');
-$router->get('/tracker/create',                 'TrackerController@create');
+// $router->get('/tracker',                 'TrackerController@index');
+// $router->get('/tracker/create',                 'TrackerController@create');
+
+// ─── Activity Tracker Phase 4 ────────────────────────────────────────────────
+$router->get('/activity/create', 'ActivityController@create'); // Form to add
+$router->post('/activity',       'ActivityController@store');  // Store action
+
 
 //$router->post('/themes',                 'ThemeController@update');

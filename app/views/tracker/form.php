@@ -37,34 +37,7 @@ $yesterday = date('Y-m-d', strtotime('-1 day'));
                 <td><input type="text" name="deliverable" required></td>
                 <td><input type="text" name="resource" required></td>
             </tr>
-            <tr>
-                <td><input type="text" name="title" required></td>
-                <td>
-                    <select name="assignee" required>
-                    <?php foreach ($users as $user): ?>
-                        <option value="<?= $user->id ?>" <?= ($user->id == $currentUserId) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($user->name) ?>  <?= ($user->id == $currentUserId) ? '-- Self' : '' ?>
-                        </option>
-                    <?php endforeach; ?>
-                    </select>
-                </td>
-                <td><input type="text" name="deliverable" required></td>
-                <td><input type="text" name="resource" required></td>
-            </tr>
-            <tr>
-                <td><input type="text" name="title" required></td>
-                <td>
-                    <select name="assignee" required>
-                    <?php foreach ($users as $user): ?>
-                        <option value="<?= $user->id ?>" <?= ($user->id == $currentUserId) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($user->name) ?>  <?= ($user->id == $currentUserId) ? '-- Self' : '' ?>
-                        </option>
-                    <?php endforeach; ?>
-                    </select>
-                </td>
-                <td><input type="text" name="deliverable" required></td>
-                <td><input type="text" name="resource" required></td>
-            </tr>
+           
             <tr>
                 <td colspan="3">Add Task +</td>
             </tr>
@@ -73,28 +46,6 @@ $yesterday = date('Y-m-d', strtotime('-1 day'));
 
     </table>
     <br><br>
-
-  <!--   <label>Description:</label><br>
-    <label>Task :1</label><input type="text" name="title" required><br>
-    <label>Task :2</label><input type="text" name="title" required><br>
-    <label>Task :3</label><input type="text" name="title" required><br><br> -->
-
-    <!-- <label>Assignee:</label>
-    <select name="assignee" required>
-        <?php foreach ($users as $user): ?>
-            <option value="<?= $user->id ?>" <?= ($user->id == $currentUserId) ? 'selected' : '' ?>>
-                <?= htmlspecialchars($user->name) ?>  <?= ($user->id == $currentUserId) ? '-- Self' : '' ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
-
-
-    <label>Deliverable:</label>
-    <input type="text" name="deliverable" required><br><br>
-
-    <label>Resource:</label>
-    <textarea name="resource"></textarea><br><br> -->
-
     <button type="submit"> Submit</button>
 </form>
 

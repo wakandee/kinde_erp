@@ -6,20 +6,15 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Department</th>
-                <th>Designation</th>
+                
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             
-                <?php foreach ($users as $user): ?>
+                <?php foreach ($activities as $activity): ?>
                     <tr>
-                        <td><?= htmlspecialchars($user->name); ?></td>
-                        <td><?= htmlspecialchars($user->email); ?></td>
-                        <td><?= htmlspecialchars($user->username); ?></td>
+                        
                         <td><?= htmlspecialchars($user->department_name ?? 'N/A'); ?></td>
                         <td><?= htmlspecialchars($user->designation_name ?? 'N/A'); ?></td>
                         <td>

@@ -73,8 +73,8 @@ $router->get('/theme/switch/:theme', 'ThemeController@switch');
 //$router->get('/theme/switch/{theme}', 'ThemeController@switch');
 
 
-// ─── Profile & Settings ────────────────────────────────────────────────────────
-// View & update own profile
+// ─── Activity Tracker ────────────────────────────────────────────────────────
+// View, add and manage activites
 $router->get('/tracker',                 'TrackerController@index');
 $router->get('/tracker/create',                 'TrackerController@create');
 

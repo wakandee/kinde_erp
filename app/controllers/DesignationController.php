@@ -5,6 +5,7 @@ use App\Core\Controller;
 use App\Middleware\Auth;
 use App\Models\Designation;
 use App\Models\Department;
+use App\Core\SessionHelper;
 
 class DesignationController extends Controller
 {
@@ -59,4 +60,13 @@ class DesignationController extends Controller
         header("Location: {$this->baseUrl}designations");
         exit;
     }
+
+    public function getByDepartment($departmentId)
+    {
+        header('Content-Type: application/json');
+        $designations = Designation::getByDepartment($departmentId);
+        echo json_encode($designations);
+        exit;
+    }
+
 }

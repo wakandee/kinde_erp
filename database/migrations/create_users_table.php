@@ -12,11 +12,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     phone_number VARCHAR(20),
     designation_id INT,
-    department_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (designation_id) REFERENCES designations(id),
-    FOREIGN KEY (department_id) REFERENCES departments(id)
+    FOREIGN KEY (designation_id) REFERENCES designations(designation_id)
 ) ENGINE=InnoDB;
 ";
 $pdo->exec($sql);

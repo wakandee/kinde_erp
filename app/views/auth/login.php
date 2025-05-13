@@ -5,12 +5,14 @@
     <?php endif; ?>
     <form method="POST" action="<?= $base_url ?>login">
         <label for="identifier">Email or Username</label>
-        <input type="text" name="identifier" id="identifier" required>
+        <input type="text" name="identifier" id="identifier" required><br>
+        <br>
 
-        <label for="password">Password</label>
+        <label for="password">Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <input type="password" name="password" id="password" required>
+        <br><br>
 
-        <button type="submit">Login</button>
+        <center><button type="submit">Login</button></center>
     </form>
     <p><a href="<?= $base_url ?>forgot-password">Forgot your password?</a></p>
 </section>

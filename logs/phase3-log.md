@@ -154,4 +154,26 @@ Step 10: Implemented Flash Messaging System
 - Updated layout views to display flash messages
 
 
+Step 11: Integrated Authorization Middleware
+- Created Auth middleware to protect private routes
+- Applied middleware in DepartmentController and HomeController
+- Replaced inline session checks with centralized logic
+
+
 Add flash messaging system for login, logout, and reset password - Implemented flash method in SessionHelper - Display success error messages in layout views - Updated AuthController to use flash messages for login, logout, and reset password actions
+
+
+CREATE TABLE `users` (
+    `user_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `department_id` INT,
+    `designation_id` INT,
+    `email` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `phone_number` VARCHAR(20) DEFAULT NULL,  -- Phone number
+    `theme_preference` VARCHAR(20) DEFAULT 'light', -- Dark/Light theme preference
+    `created_by` INT,  -- User who created the record
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp
+    FOREIGN KEY (`department_id`) REFERENCES `departments`(`department_id`),
+    FOREIGN KEY (`designation_id`) REFERENCES `designations`(`designation_id`)
+);

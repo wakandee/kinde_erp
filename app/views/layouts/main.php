@@ -15,12 +15,12 @@
 ?>
 <body class="<?= htmlspecialchars($theme . '-mode', ENT_QUOTES, 'UTF-8') ?>">
     <!-- Add flash -->
-    <?php if ($msg = SessionHelper::flash('success')): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
-    <?php endif; ?>
 
-    <?php if ($msg = SessionHelper::flash('error')): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
+    <?php if ($message = \App\Core\SessionHelper::getFlash('success')): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+    <?php endif; ?>
+    <?php if ($message = \App\Core\SessionHelper::getFlash('error')): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
 
 

@@ -26,10 +26,11 @@ $router->get('/reset-password', 'AuthController@showResetForm');
 $router->post('/reset-password', 'AuthController@resetPassword');
 
 // ─── Users Management ─────────────────────────────────────────────────────────
-// List users, create, store, edit, update, delete
-$router->get('/users',           'UserController@index');
-$router->get('/users/create',    'UserController@create');
-$router->post('/users',          'UserController@store');
+// List users, create, store, edit, update, delete// Create new user
+$router->get('/users', 'UserController@index');
+$router->get('/users/create', 'UserController@create');
+$router->post('/users',       'UserController@store');  // <-- new
+
 $router->get('/users/{id}/edit', 'UserController@edit');
 $router->post('/users/{id}',     'UserController@update');
 $router->post('/users/{id}/delete','UserController@destroy');
@@ -39,9 +40,11 @@ $router->post('/users/{id}/delete','UserController@destroy');
 $router->get('/departments',            'DepartmentController@index');
 $router->get('/departments/create',     'DepartmentController@create');
 $router->post('/departments',           'DepartmentController@store');
-$router->get('/departments/{id}/edit',  'DepartmentController@edit');
-$router->post('/departments/{id}',      'DepartmentController@update');
-$router->post('/departments/{id}/delete','DepartmentController@destroy');
+// $router->post('/departments/store',           'DepartmentController@store');
+$router->get('/departments/edit/{id}',    'DepartmentController@edit');
+$router->post('/departments/delete/{id}', 'DepartmentController@destroy');
+
+$router->post('/departments/update/{id}',      'DepartmentController@update');
 
 // ─── Designations ─────────────────────────────────────────────────────────────
 // List, create, store, edit, update, delete
@@ -51,6 +54,8 @@ $router->post('/designations',           'DesignationController@store');
 $router->get('/designations/{id}/edit',  'DesignationController@edit');
 $router->post('/designations/{id}',      'DesignationController@update');
 $router->post('/designations/{id}/delete','DesignationController@destroy');
+$router->get('/designations/by-department/{id}', 'DesignationController@getByDepartment');
+
 
 // ─── Profile & Settings ────────────────────────────────────────────────────────
 // View & update own profile

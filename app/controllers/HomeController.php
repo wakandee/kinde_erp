@@ -17,5 +17,3 @@ class HomeController extends Controller
         $this->view('home'); // View gets 'base_url' from Controller
     }
 }
-
-Implement centralized authorization middleware - Added Auth middleware to protect routes - Applied Auth::handle() in HomeController and DepartmentController - Ensured only logged-in users access protected pages

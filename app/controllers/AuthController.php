@@ -41,6 +41,7 @@ class AuthController extends Controller
 
         SessionHelper::set('user_id', $user->id);
         SessionHelper::set('username', $user->username);
+        SessionHelper::set('base_url', $this->baseUrl);
 
         SessionHelper::flash('success', 'Welcome back, ' . $user->username . '!');
         header("Location: {$this->baseUrl}");
@@ -113,4 +114,22 @@ class AuthController extends Controller
         header("Location: {$this->baseUrl}login");
         exit;
     }
+
+    public static function flash(string $key, string $message): void
+    {
+        self::start();
+        $_SESSION['flash'][$key] = $message;
+    }
+
+    public static function getFlash(string $key): ?string
+    {
+        self::start();
+        if (!empty($_SESSION['flash'][$key])) {
+            $message = $_SESSION['flash'][$key];
+            unset($_SESSION['flash'][$key]);
+            return $message;
+        }
+        return null;
+    }
+
 }

@@ -39,7 +39,8 @@ class SessionHelper
         $now = time();
         if (isset($_SESSION['last_activity']) && ($now - $_SESSION['last_activity']) > self::TIMEOUT) {
             self::destroy();
-            header('Location: ' . ($_SESSION['base_url'] ?? '/login'));
+            $base_url = $_ENV['BASE_URL'] ?? $_SESSION['base_url'];
+            header('Location: ' . $base_url.'login');
             exit;
         }
         $_SESSION['last_activity'] = $now;
@@ -59,6 +60,25 @@ class SessionHelper
             return $msg;
         }
     }
+
+    public static function setFlash(string $key, string $message): void
+    {
+        self::start();
+        $_SESSION['flash'][$key] = $message;
+    }
+
+
+    public static function getFlash(string $key): ?string
+    {
+        self::start();
+        if (isset($_SESSION['flash'][$key])) {
+            $value = $_SESSION['flash'][$key];
+            unset($_SESSION['flash'][$key]); // Flash messages should only show once
+            return $value;
+        }
+        return null;
+    }
+
 
 
 }

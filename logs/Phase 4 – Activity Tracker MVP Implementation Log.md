@@ -37,3 +37,12 @@ Next:
 [✓] [2025-05-13 14:10] Phase 4 - Activity tracker routes added to web.php:
      - /activity/create [GET]
      - /activity        [POST]
+
+[Phase 4 - Activity Tracker]
+Date: 2025-05-13
+
+- Implemented dynamic activity creation form (activity date, week number auto-calc, title)
+- Added support for multiple task entries (task, assignee, deliverable, resource)
+- Task inputs dynamically repeat and index properly
+- Linked controller to pass user data and render form
+- Prepped for storing each task as individual rows in 'activity_tasks' table

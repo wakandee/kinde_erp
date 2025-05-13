@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 use App\Core\Database;
 use App\Models\User;
 use App\Models\PasswordReset;

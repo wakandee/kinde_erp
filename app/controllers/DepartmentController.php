@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 use App\Middleware\Auth;
 use App\Models\Department;
 
@@ -13,11 +13,12 @@ class DepartmentController extends Controller
     public function __construct()
     {
         Auth::handle();  // Protect all DepartmentController actions
+        parent::__construct(); // ✅ Call this first
     }
 
     public function index()
     {
-        $departments = Department::all();
+        $departments = Department::all_departments();
         $this->view('departments/index', ['departments' => $departments]);
     }
 
@@ -73,9 +74,17 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
-        Department::delete($id);
+        $success = Department::delete($id);
+
+        if (! $success) {
+            SessionHelper::flash('error', 'Cannot delete department. It is linked to one or more designations.');
+            header("Location: {$this->baseUrl}departments");
+            exit;
+        }
+
         SessionHelper::flash('success', 'Department deleted successfully.');
         header("Location: {$this->baseUrl}departments");
         exit;
     }
+
 }

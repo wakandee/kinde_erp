@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Middleware\Auth;
 use App\Models\User;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 
 class ProfileController extends Controller
 {

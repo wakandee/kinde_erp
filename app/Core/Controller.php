@@ -2,14 +2,17 @@
 namespace App\Core;
 
 use App\Core\View;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 
 abstract class Controller
 {
+    protected string $baseUrl;
+
     public function __construct()
     {
         // Ensure session is always started for each controller
         SessionHelper::start();
+        $this->baseUrl = $_ENV['BASE_URL'] ?? $_SESSION['base_url'] ?? '/';
     }
 
     protected function view(string $view, array $data = []): void

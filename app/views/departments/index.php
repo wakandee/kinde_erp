@@ -15,12 +15,15 @@
     <?php foreach ($departments as $department): ?>
         <tr>
             <td><?= htmlspecialchars($department->name); ?></td>
-            <td></td>
+            <td><?= $department->staff_count; ?></td>
            
             <td>
                 <a href="<?= $base_url ?>departments/edit/<?= $department->id ?>">Edit</a>
-                <!-- <a href="<?= $base_url ?>departments/<?= $department->id ?>/edit">Edit</a> -->
-                <a href="<?= $base_url ?>departments/delete/<?= $department->id ?>" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="<?= $base_url ?>departments/<?= $department->id ?>/edit">Edit</a>
+                <form action="<?= $base_url ?>departments/delete/<?= $department->id ?>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                    <button type="submit">Delete</button>
+                </form>
+
             </td>
         </tr>
     <?php endforeach; ?>

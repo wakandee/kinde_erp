@@ -6,6 +6,7 @@
         <tr>
             <th>Designation Name</th>
             <th>Department</th>
+            <th>No. of Staff</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -15,7 +16,7 @@
         <tr>
             <td><?= htmlspecialchars($designation->name); ?></td>
             <td><?= htmlspecialchars($designation->department_name); ?></td>
-           
+            <td><?= $designation->staff_count; ?></td>
             <td>
                 <a href="<?= $base_url ?>designations/edit/<?= $designation->id ?>">Edit</a>
                 <a href="<?= $base_url ?>designations/delete/<?= $designation->id ?>" onclick="return confirm('Are you sure?')">Delete</a>

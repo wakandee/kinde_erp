@@ -1,7 +1,7 @@
 <?php
 namespace App\Middleware;
 
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 
 class Auth
 {

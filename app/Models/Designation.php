@@ -21,6 +21,21 @@ class Designation
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public static function all_designation()
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT g.*, 
+                       d.name AS department_name,
+                       COUNT(u.id) AS staff_count
+                FROM designations g
+                LEFT JOIN departments d ON g.department_id = d.id
+                LEFT JOIN users u ON u.designation_id = g.id
+                GROUP BY g.id, d.name
+                ORDER BY g.name ASC";
+        $stmt = $db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public static function find(int $id)
     {
         $db = Database::getInstance();

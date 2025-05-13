@@ -2,32 +2,32 @@
 
 <form method="POST" action="<?= isset($user) ? $base_url . 'users/' . $user->id : $base_url . 'users' ?>">
 
-    <label>Name:</label><br>
-    <input type="text" name="name" value="<?= $user->name ?? '' ?>" required><br>
+    <label>Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="name" value="<?= $user->name ?? '' ?>" required><br><br>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" value="<?= $user->email ?? '' ?>" required><br>
+    <label>Email:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="email" name="email" value="<?= $user->email ?? '' ?>" required><br><br>
 
-    <label>Username:</label><br>
-    <input type="text" name="username" value="<?= $user->username ?? '' ?>" required><br>
+    <label>Username:</label>
+    <input type="text" name="username" value="<?= $user->username ?? '' ?>" required><br><br>
 
-    <label>Password: <?= isset($user) ? '(Leave blank to keep current)' : '' ?></label><br>
-    <input type="password" name="password"><br>
+    <label>Password: <?= isset($user) ? '(Leave blank to keep current)' : '' ?></label>
+    <input type="password" name="password" autocomplete="new-password"><br><br>
 
-    <label>Phone Number:</label><br>
-    <input type="text" name="phone_number" value="<?= $user->phone_number ?? '' ?>"><br>
+    <label>Phone No:</label>
+    <input type="text" name="phone_number" value="<?= $user->phone_number ?? '' ?>"><br><br>
 
-    <label>Department:</label><br>
+    <label>Department:</label>
     <select name="department_id" required>
         <option value="">-- Select Department --</option>
         <?php foreach ($departments as $dept): ?>
-            <option value="<?= $dept->id ?>" <?= (isset($user) && $user->department_id == $dept->department_id) ? 'selected' : '' ?>>
+            <option value="<?= $dept->id ?>" <?= (isset($user) && $user->department_id == $dept->id) ? 'selected' : '' ?>>
                 <?= htmlspecialchars($dept->name) ?>
             </option>
         <?php endforeach; ?>
-    </select><br>
+    </select><br><br>
 
-    <label>Designation:</label><br>
+    <label>Designation:</label>
     <select name="designation_id" required>
         <option value="">-- Select Designation --</option>
         <?php foreach ($designations as $des): ?>

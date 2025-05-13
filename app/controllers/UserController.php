@@ -4,13 +4,14 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Middleware\Auth;
 use App\Models\User;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 use App\Models\Department;
 
 class UserController extends Controller
 {
     public function __construct()
     {
+        parent::__construct(); 
         Auth::handle();
     }
 
@@ -55,7 +56,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $this->view('users/edit', ['user' => $user]);
+
+         $departments = Department::all();
+        $this->view('users/form', ['user' => $user,'departments' => $departments]);
+        // $this->view('users/form', ['user' => $user]);
     }
 
     public function update($id)

@@ -1,3 +1,3 @@
 <footer>
-    <p>&copy; <?= date('Y') ?> Kinde ERP. All rights reserved.</p>
+    <p>&copy; Copyright <?= date('Y') ?> | Kinde Engineering Works LTD | All rights reserved.</p>
 </footer>

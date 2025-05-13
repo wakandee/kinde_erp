@@ -31,9 +31,9 @@ $router->get('/users', 'UserController@index');
 $router->get('/users/create', 'UserController@create');
 $router->post('/users',       'UserController@store');  // <-- new
 
-$router->get('/users/{id}/edit', 'UserController@edit');
+$router->get('/users/edit/{id}', 'UserController@edit');
 $router->post('/users/{id}',     'UserController@update');
-$router->post('/users/{id}/delete','UserController@destroy');
+$router->post('/users/delete/{id}','UserController@destroy');
 
 // ─── Departments ───────────────────────────────────────────────────────────────
 // List, create, store, edit, update, delete
@@ -51,10 +51,11 @@ $router->post('/departments/update/{id}',      'DepartmentController@update');
 $router->get('/designations',            'DesignationController@index');
 $router->get('/designations/create',     'DesignationController@create');
 $router->post('/designations',           'DesignationController@store');
-$router->get('/designations/{id}/edit',  'DesignationController@edit');
+$router->get('/designations/edit/{id}',  'DesignationController@edit');
 $router->post('/designations/{id}',      'DesignationController@update');
-$router->post('/designations/{id}/delete','DesignationController@destroy');
+$router->post('/designations/delete/{id}','DesignationController@destroy');
 $router->get('/designations/by-department/{id}', 'DesignationController@getByDepartment');
+$router->post('/designations/update/{id}',      'DesignationController@update');
 
 
 // ─── Profile & Settings ────────────────────────────────────────────────────────
@@ -70,5 +71,11 @@ $router->post('/profile/change-password','ProfileController@changePassword');
 $router->get('/themes',                  'ThemeController@index');
 $router->get('/theme/switch/:theme', 'ThemeController@switch');
 //$router->get('/theme/switch/{theme}', 'ThemeController@switch');
+
+
+// ─── Profile & Settings ────────────────────────────────────────────────────────
+// View & update own profile
+$router->get('/tracker',                 'TrackerController@index');
+$router->get('/tracker/create',                 'TrackerController@create');
 
 //$router->post('/themes',                 'ThemeController@update');

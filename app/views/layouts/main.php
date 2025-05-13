@@ -1,4 +1,4 @@
-<?php use App\Core\SessionHelper; ?>
+<?php use App\Helpers\SessionHelper; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +7,8 @@
     <title><?= htmlspecialchars($title ?? 'Kinde ERP', ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="<?= $base_url ?>assets/css/style.css">
     <script src="<?= $base_url ?>assets/js/main.js" defer></script>
+    <link rel="icon" type="image/png" href="<?= $base_url ?>assets/icons/favicon.png">
+
 </head>
 <?php
     if (session_status() === PHP_SESSION_NONE) session_start();
@@ -16,10 +18,10 @@
 <body class="<?= htmlspecialchars($theme . '-mode', ENT_QUOTES, 'UTF-8') ?>">
     <!-- Add flash -->
 
-    <?php if ($message = \App\Core\SessionHelper::getFlash('success')): ?>
+    <?php if ($message = \App\Helpers\SessionHelper::getFlash('success')): ?>
         <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
-    <?php if ($message = \App\Core\SessionHelper::getFlash('error')): ?>
+    <?php if ($message = \App\Helpers\SessionHelper::getFlash('error')): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
 

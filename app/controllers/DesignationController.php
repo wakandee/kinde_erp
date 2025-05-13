@@ -5,18 +5,19 @@ use App\Core\Controller;
 use App\Middleware\Auth;
 use App\Models\Designation;
 use App\Models\Department;
-use App\Core\SessionHelper;
+use App\Helpers\SessionHelper;
 
 class DesignationController extends Controller
 {
     public function __construct()
     {
+        parent::__construct(); 
         Auth::handle();
     }
 
     public function index()
     {
-        $designations = Designation::all();
+        $designations = Designation::all_designation();
         $this->view('designations/index', ['designations' => $designations]);
     }
 
@@ -47,19 +48,40 @@ class DesignationController extends Controller
 
     public function update($id)
     {
-        $name         = trim($_POST['name'] ?? '');
+        $name = trim($_POST['name'] ?? '');
         $departmentId = (int)($_POST['department_id'] ?? 0);
-        Designation::update($id, $name, $departmentId);
+
+        if (!$name || $departmentId <= 0) {
+            SessionHelper::flash('error','Name and valid Department are required.' );
+            header("Location: {$this->baseUrl}designations/edit/{$id}");
+            exit;
+        }
+
+        try {
+            Designation::update($id, $name, $departmentId);
+            SessionHelper::flash('success', 'Designation updated successfully.');
+        } catch (\PDOException $e) {
+            SessionHelper::flash('error', 'Failed to update designation: ' . $e->getMessage());
+        }
+
         header("Location: {$this->baseUrl}designations");
         exit;
     }
 
+
     public function destroy($id)
     {
-        Designation::delete($id);
+        try {
+            Designation::delete($id);
+            SessionHelper::flash('success', 'Designation deleted successfully.');
+        } catch (\PDOException $e) {
+            SessionHelper::flash('error', 'Cannot delete designation: it is in use.');
+        }
+
         header("Location: {$this->baseUrl}designations");
         exit;
     }
+
 
     public function getByDepartment($departmentId)
     {

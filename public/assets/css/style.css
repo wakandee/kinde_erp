@@ -28,6 +28,57 @@ header nav{
     align-items: center;
 }
 
+/* Header Layout */
+/*.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}*/
+
+/* Logo and Title */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-title img {
+    height: 40px;
+    width: auto;
+}
+
+.logo-title h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-nav a,
+.main-nav button {
+    text-decoration: none;
+    color: #333;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.main-nav a.logout {
+    color: red;
+    font-weight: bold;
+}
+
+
 /* Dark mode JS toggle script (to be added inline or separate file) */
 
 
@@ -67,8 +118,22 @@ body.dark-mode {
 }
 
 .sidebar nav ul li {
-    margin-bottom: 10px;
+    padding: 10px 0;
 }
+
+.sidebar nav ul li:hover {
+    background: #eee;
+}
+
+.sidebar nav ul li.active {
+    background-color: #ddd;
+    font-weight: bold;
+}
+
+.sidebar nav ul li.active a {
+    color: #000;
+}
+
 
 .sidebar nav ul li a {
     text-decoration: none;

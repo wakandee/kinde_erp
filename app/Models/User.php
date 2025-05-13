@@ -26,6 +26,16 @@ class User
         return $stmt->fetchAll(\PDO::FETCH_OBJ); // Or map to custom class if needed
     }
 
+    public static function all_users_names()
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT id,name
+                FROM users u
+                ";
+        $stmt = $db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_OBJ); // Or map to custom class if needed
+    }
+
     public static function find(int $id)
     {
         $db = Database::getInstance();

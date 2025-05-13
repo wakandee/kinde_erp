@@ -17,6 +17,21 @@ class Department
         //return $stmt->fetchAll(\PDO::FETCH_CLASS, self::class);
     }
 
+    public static function all_departments()
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT d.*, 
+                       COUNT(u.id) AS staff_count
+                FROM departments d
+                LEFT JOIN designations des ON des.department_id = d.id
+                LEFT JOIN users u ON u.designation_id = des.id
+                GROUP BY d.id
+                ORDER BY d.name ASC";
+        $stmt = $db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+
     public static function find(int $id)
     {
         $db = Database::getInstance();
@@ -45,6 +60,18 @@ class Department
     {
         $db = Database::getInstance();
         $stmt = $db->prepare("DELETE FROM departments WHERE id = ?");
-        return $stmt->execute([$id]);
+
+        try {
+            return $stmt->execute([$id]);
+        } catch (\PDOException $e) {
+            if ($e->getCode() === '23000') {
+                // Integrity constraint violation
+                return false;
+            }
+
+            // Re-throw for other unhandled errors
+            throw $e;
+        }
     }
+
 }

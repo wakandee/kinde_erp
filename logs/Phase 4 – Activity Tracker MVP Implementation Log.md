@@ -32,3 +32,8 @@ Next:
      - Integrated user session for dynamic assignment.
      - Confirmed multi-task entry plan per activity.
      - Ready for frontend form updates.
+
+
+[✓] [2025-05-13 14:10] Phase 4 - Activity tracker routes added to web.php:
+     - /activity/create [GET]
+     - /activity        [POST]

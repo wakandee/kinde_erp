@@ -43,29 +43,46 @@ class ActivityController extends Controller
 
     public function store()
     {
-        $data = [
-            'user_id' => SessionHelper::get('user_id'),
-            'week' => $_POST['week'],
-            'title' => $_POST['title'],
-            'date' => $_POST['activity_date']
-        ];
+        $userId = SessionHelper::get('user_id');
+        $activityDate = $_POST['activity_date'] ?? null;
+        $week = $_POST['week'] ?? null;
+        $title = $_POST['title'] ?? null;
 
-        $activity_id = Activity::create($data);
-
-        foreach ($_POST['tasks'] as $task) {
-            ActivityTask::create([
-                'activity_id' => $activity_id,
-                'task' => $task['task'],
-                'assignee_id' => $task['assignee'],
-                'deliverable' => $task['deliverable'],
-                'resource' => $task['resource']
-            ]);
+        if (!$activityDate || !$title || !$userId) {
+            SessionHelper::flash('error', 'Missing required fields.');
+            header("Location: {$this->baseUrl}tracker/create");
+            exit;
         }
 
-        SessionHelper::flash('success', 'Activity successfully created.');
+        // Insert activity
+        $db = \App\Core\Database::getInstance();
+        $stmt = $db->prepare("INSERT INTO activities (user_id, title, activity_date, week) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$userId, $title, $activityDate, $week]);
+
+        $activityId = $db->lastInsertId();
+
+        // Insert tasks (loop through rows)
+        if (isset($_POST['tasks']) && is_array($_POST['tasks'])) {
+            foreach ($_POST['tasks'] as $task) {
+                $taskTitle = trim($task['title'] ?? '');
+                $assigneeId = $task['assignee'] ?? null;
+                $deliverable = trim($task['deliverable'] ?? '');
+                $resource = trim($task['resource'] ?? '');
+
+                if  ($taskTitle && $assigneeId) {
+                    $taskStmt = $db->prepare("INSERT INTO activity_tasks 
+                        (activity_id, task, assignee_id, deliverable, resource, status) 
+                        VALUES (?, ?, ?, ?, ?, 'Not started')");
+                    $taskStmt->execute([$activityId, $taskTitle, $assigneeId, $deliverable, $resource]);
+                }
+            }
+        }
+
+        SessionHelper::flash('success', 'Activity and tasks added successfully.');
         header("Location: {$this->baseUrl}tracker");
         exit;
     }
+
 }
 
 ?>

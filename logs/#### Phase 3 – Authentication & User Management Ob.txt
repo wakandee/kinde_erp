@@ -145,3 +145,5 @@ kinde_erp/
 | 9    | Logout route and logic                  | 🔄 In Progress |       |
 | 10   | Flash messaging (e.g., login errors)    | 🔲 Pending     |       |
 | 11   | General route cleanup & security check  | 🔲 Pending     |       |
+
+

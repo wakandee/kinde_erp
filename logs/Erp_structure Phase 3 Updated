@@ -6,15 +6,16 @@ kinde_erp/
 │   │   ├── DepartmentController.php
 │   │   ├── DesignationController.php
 │   │   ├── ProfileController.php
-│   │   └── ThemeController.php
+│   │   └── ThemeController.php --not yet done
+│   │   └── TrackerController.php
 │   │   └── HomeController.php
 │   ├── Core/
 │   │   ├── Controller.php
 │   │   ├── Database.php
 │   │   ├── Router.php
-│   │   ├── View.php
-│   │   └── SessionHelper.php ✅ (NEW: Helper class for session handling)
+│   │   └── View.php
 │   ├── Helpers/
+│   │   ├── SessionHelper.php
 │   │   └── UrlHelper.php ✅ (NEW: Helper functions for URL manipulation)
 │   ├── Middleware/
 │   │   ├── Auth.php
@@ -22,8 +23,8 @@ kinde_erp/
 │   │   └── InactivityLogout.php -- not yet done
 │   ├── Models/
 │   │   ├── User.php
-│   │   ├── Department.php -- Does not exist
-│   │   ├── Designation.php -- Does not exist
+│   │   ├── Department.php
+│   │   ├── Designation.php
 │   │   ├── UIPreference.php -- Does not exist
 │   │   └── PasswordReset.php
 │   └── Views/
@@ -32,18 +33,21 @@ kinde_erp/
 │       │   ├── forgot_password.php
 │       │   └── reset_password.php
 │       ├── users/
-│       │   ├── index.php -- Does not exist
-│       │   └── form.php -- Does not exist
+│       │   ├── index.php
+│       │   └── form.php
 │       ├── departments/
-│       │   ├── index.php -- Does not exist
-│       │   └── form.php -- Does not exist
+│       │   ├── index.php
+│       │   └── form.php
+│       ├── tracker/
+│       │   ├── index.php
+│       │   └── form.php
 │       ├── designations/
-│       │   ├── index.php -- Does not exist
-│       │   └── form.php -- Does not exist
+│       │   ├── index.php
+│       │   └── form.php
 │       ├── profile/
-│       │   └── index.php -- Does not exist
+│       │   └── index.php
 │       ├── themes/
-│       │   └── index.php -- Does not exist
+│       │   └── index.php
 │       ├── layouts/
 │       │   └── auth.php
 │       │   └── login.php
@@ -63,13 +67,16 @@ kinde_erp/
 │   │   ├── create_designations_table.php
 │   │   ├── create_ui_preferences_table.php
 │   │   └── create_password_resets_table.php
-│   └── seeds/ ✅ (optional later)
+│   └── seeds/ ✅ (optional later) - to be done
 ├── logs/
 │   ├── phase1-log.md 
 │   ├── phase2-log.md 
 │   └── phase3-log.md
 ├── public/
 │   ├── assets/
+│   │   ├── icons/
+│   │   │   ├── favicon.png
+│   │   │   └── KINDE.jpg
 │   │   ├── css/
 │   │   │   ├── style.css
 │   │   │   └── themes.css -- nothing inside
@@ -86,8 +93,6 @@ kinde_erp/
 ├── vendor/
 ├── .env
 ├── .gitignore
-├── .gitignore-tracker.txt
-├── .gitignored_files.md
 ├── composer.json
 ├── env.php
 └── README.md

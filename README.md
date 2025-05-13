@@ -218,3 +218,26 @@ User table and model
 - All controllers follow PSR-4 autoloading and are namespaced under `Kinde\KindeErp\Controllers`
 - Views are rendered via `App\Core\Controller::view()` and pass a `$base_url` to layout
 - Assets (CSS/JS) are correctly loaded from `/public/assets/` via `config.php` base URL
+
+
+✅ Phase 3: Authentication System (Completed)
+Implemented AuthController with login and logout methods.
+
+Users can authenticate using username or email + password (SHA256 hashed).
+
+Sessions are initialized via SessionHelper, with user data stored for access control.
+
+Built login form with client-side and server-side validation.
+
+Session-based middleware guards protect authenticated routes and redirect unauthorized users.
+
+On successful login, users are redirected based on role/designation.
+
+Added logout button in header, styled and aligned with user info and theme toggle.
+
+Secured routing for module access to prevent bypassing via direct URL.
+
+All logic follows MVC pattern, cleanly separated into controllers, models, and views.
+
+✅ Phase 3 sets the foundation for role-based access control (RBAC), dynamic dashboards, and secure module loading in upcoming phases.
+

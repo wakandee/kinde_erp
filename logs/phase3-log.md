@@ -177,3 +177,43 @@ CREATE TABLE `users` (
     FOREIGN KEY (`department_id`) REFERENCES `departments`(`department_id`),
     FOREIGN KEY (`designation_id`) REFERENCES `designations`(`designation_id`)
 );
+
+
+✅ Phase 3: Authentication & User Management
+User Authentication System:
+
+AuthController handles login, logout, password reset (token-based), and session logic
+
+login.php, forgot_password.php, and reset_password.php views under Views/auth/
+
+Session-based middleware (Auth.php) ensures protected routes
+
+User Access Management:
+
+UserController, DepartmentController, and DesignationController enable basic user role setup
+
+CRUD UI under Views/users/, Views/departments/, and Views/designations/
+
+User Session Management:
+
+SessionHelper.php provides utilities for login/session handling
+
+Middleware for duplicate login and inactivity timeout is scaffolded (PreventDuplicateLogin.php, InactivityLogout.php – WIP)
+
+View & Layout Improvements:
+
+Basic layout structure using layouts/auth.php and layouts/main.php
+
+Includes shared partials/header.php, sidebar.php, and footer.php
+
+Database Migration Setup:
+
+New migrations added for users, departments, designations, password_resets, and ui_preferences (future)
+
+Migration scripts are located in database/migrations/
+
+Project Structure Enhancements:
+
+PSR-4 autoloading via composer.json
+
+MVC folders: Controllers, Models, Views, Core, Helpers, Middleware

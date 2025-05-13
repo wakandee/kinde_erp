@@ -28,11 +28,18 @@ class ActivityController extends Controller
 
     public function create()
     {
-        $users = User::all_users_names();
         $currentUserId = SessionHelper::get('user_id');
-        usort($users, fn($a, $b) => ($a->id === $currentUserId) ? -1 : 1);
-        $this->view('tracker/form', ['users' => $users, 'currentUserId' => $currentUserId]);
+        $users = User::all_users_names();
+
+        // Self comes first
+        usort($users, fn($a, $b) => ($a->id === $currentUserId) ? -1 : (($b->id === $currentUserId) ? 1 : 0));
+
+        $this->view('activity/create', [
+            'users' => $users,
+            'currentUserId' => $currentUserId
+        ]);
     }
+
 
     public function store()
     {

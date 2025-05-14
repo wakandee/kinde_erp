@@ -1,4 +1,4 @@
-<h2>Update Task Status</h2>
+<h3>Update Task Status</h3>
 
 <form method="POST" action="<?= $base_url ?>activities/update_status/<?= $task->task_id ?>">
     <p><strong>Task:</strong> <?= htmlspecialchars($task->task) ?></p>

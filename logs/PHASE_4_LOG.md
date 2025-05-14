@@ -78,3 +78,18 @@
 ### Notes
 - System now maintains a full audit trail of all task updates.
 - Inline comment field removed from `activity_tasks`, migrated to `activity_task_updates`.
+
+----------------------------------------------
+## [v1.4.0] - 2025-05-14
+
+### Added
+- Task edit history is now recorded in `activity_task_history` table.
+- Tooltip and clickable [Edited] label shows before/after version of task updates.
+- New route `/activities/tasks/:id/history` displays edit trail for a task.
+- AuthHelper class for retrieving session user ID and email globally.
+
+### Fixed
+- Missing class imports for `AuthHelper` and `ActivityTaskHistory`.
+
+### Notes
+- Currently supports one edit per task. Future versions may allow multiple edit versions.

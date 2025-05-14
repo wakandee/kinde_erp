@@ -1,6 +1,7 @@
 <h3>Departments</h3>
+<hr>
 
-<a href="<?= $base_url ?>departments/create">Add New</a>
+<a href="<?= $base_url ?>departments/create">+ Add New</a><br><br>
 
 <table border="1" cellpadding="6">
     <thead>
@@ -19,7 +20,6 @@
            
             <td>
                 <a href="<?= $base_url ?>departments/edit/<?= $department->id ?>">Edit</a>
-                <a href="<?= $base_url ?>departments/<?= $department->id ?>/edit">Edit</a>
                 <form action="<?= $base_url ?>departments/delete/<?= $department->id ?>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?');">
                     <button type="submit">Delete</button>
                 </form>

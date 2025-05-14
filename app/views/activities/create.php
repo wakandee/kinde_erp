@@ -2,7 +2,7 @@
 use App\Helpers\SessionHelper;
 ?>
 
-<h2>Create Weekly Activity</h2>
+<h3>Create Weekly Activity</h3>
 
 <form method="POST" action="<?= \$base_url ?>activities/store">
     <label>Activity Title:</label><br>

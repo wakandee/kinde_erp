@@ -7,6 +7,8 @@ use App\Core\Router;
 
 // Home
 $router->get('/', 'HomeController@index');
+$router->post('ui-preference/theme', 'UiPreferenceController@setTheme');
+
 
 // ─── Authentication ────────────────────────────────────────────────────────────
 // Show login form & process login
@@ -100,6 +102,7 @@ $router->post('/activities/tasks/{id}/update', 'ActivityController@update_task')
 $router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
 $router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
 
+$router->get('activities/tasks/{id}/history', 'ActivityController@view_task_history');
 
 
 

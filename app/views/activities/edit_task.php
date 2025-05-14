@@ -1,7 +1,7 @@
 
 <?php use App\Helpers\SessionHelper; ?>
 
-<h2>Edit Task</h2>
+<h3>Edit Task</h3>
 
 <?php if (!empty($task->is_edited) || $task->status !== 'Not Started'): ?>
     <p style="color:red;"><strong>This task can no longer be edited. It has already been edited or its status has changed.</strong></p>

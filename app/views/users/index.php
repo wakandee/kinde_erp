@@ -1,5 +1,6 @@
-<h2>Users List</h2>
-<a href="<?= $base_url ?>users/create">Add User</a>
+<h3>Staff List</h3>
+<hr><wbr>
+<a href="<?= $base_url ?>users/create">+ Add Staff</a><wbr><br><br>
 
 <table border="1" cellpadding="6">
     <thead>

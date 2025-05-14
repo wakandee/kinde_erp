@@ -10,7 +10,10 @@ use App\Middleware\Auth;
 use App\Models\User;
 use App\Models\Activity;
 use App\Models\ActivityTask;
-use App\Models\ActivityTaskEdit;
+// use App\Helpers\AuthHelper;
+
+// use App\Models\ActivityTaskEdit;
+use App\Models\ActivityTaskHistory; 
 use App\Models\ActivityWeeklyRemark;
 
 class ActivityController extends Controller
@@ -116,46 +119,71 @@ class ActivityController extends Controller
     }
 
 
-    public function update_task($taskId)
-    {
-        // Fetch the task via the model
-        $task = ActivityTask::find($taskId);
+   
 
-        if (!$task) {
-            SessionHelper::flash('error', 'Task not found.');
-            header("Location: {$this->baseUrl}activities");
-            exit;
-        }
+public function update_task($taskId)
+{
+    $task = ActivityTask::find($taskId);
 
-        // Prevent updates if task has already been edited or status is not 'Not Started'
-        if (!empty($task->is_edited) || $task->status !== 'Not Started') {
-            SessionHelper::flash('error', 'Task can no longer be updated.');
-            header("Location: {$this->baseUrl}activities");
-            exit;
-        }
-
-        $taskText = trim($_POST['task'] ?? '');
-        $deliverable = trim($_POST['deliverable'] ?? '');
-        $resource = trim($_POST['resource'] ?? '');
-
-        if (empty($taskText) || empty($deliverable)) {
-            SessionHelper::flash('error', 'Task and deliverable are required.');
-            header("Location: {$this->baseUrl}activities/tasks/{$taskId}/edit");
-            exit;
-        }
-
-        // Now call the model method to update the task
-        $updateSuccess = ActivityTask::updateTask($taskId, $taskText, $deliverable, $resource);
-
-        if ($updateSuccess) {
-            SessionHelper::flash('success', 'Task updated successfully.');
-            header("Location: {$this->baseUrl}activities");
-        } else {
-            SessionHelper::flash('error', 'Failed to update task.');
-            header("Location: {$this->baseUrl}activities/tasks/{$taskId}/edit");
-        }
+    if (!$task) {
+        SessionHelper::flash('error', 'Task not found.');
+        header("Location: {$this->baseUrl}activities");
         exit;
     }
+
+    // Prevent updates if already edited or status not 'Not Started'
+    if (!empty($task->is_edited) || $task->status !== 'Not Started') {
+        SessionHelper::flash('error', 'Task can no longer be updated.');
+        header("Location: {$this->baseUrl}activities");
+        exit;
+    }
+
+    // Get input
+    $taskText = trim($_POST['task'] ?? '');
+    $deliverable = trim($_POST['deliverable'] ?? '');
+    $resource = trim($_POST['resource'] ?? '');
+
+    if (empty($taskText) || empty($deliverable)) {
+        SessionHelper::flash('error', 'Task and deliverable are required.');
+        header("Location: {$this->baseUrl}activities/tasks/{$taskId}/edit");
+        exit;
+    }
+
+    // Check if anything has changed
+    $hasChanges = (
+        $taskText !== $task->task ||
+        $deliverable !== $task->deliverable ||
+        $resource !== $task->resource
+    );
+
+    if ($hasChanges) {
+        // Save original values into history
+        $historyInserted = ActivityTaskHistory::logEdit([
+            'task_id' => $task->task_id,
+            'activity_id' => $task->activity_id,
+            'edited_by' => SessionHelper::get('user_id'), // Get current user ID
+            'old_task_title' => $task->task,
+            'old_assignee_id' => $task->assignee_id,
+            'old_deliverable' => $task->deliverable,
+            'old_resource' => $task->resource,
+            'old_status' => $task->status,
+            'old_comments' => $task->status_comment ?? null,
+        ]);
+    }
+
+    // Proceed to update the task
+    $updateSuccess = ActivityTask::updateTask($taskId, $taskText, $deliverable, $resource);
+
+    if ($updateSuccess) {
+        SessionHelper::flash('success', 'Task updated successfully.');
+        header("Location: {$this->baseUrl}activities");
+    } else {
+        SessionHelper::flash('error', 'Failed to update task.');
+        header("Location: {$this->baseUrl}activities/tasks/{$taskId}/edit");
+    }
+    exit;
+}
+
 
 
 
@@ -240,19 +268,27 @@ class ActivityController extends Controller
         ]);
     }
 
+    // app/Controllers/ActivityController.php
 
-//     public function update_status($id)
-// {
-//     $status = $_POST['status'] ?? null;
+    public function view_task_history($taskId)
+    {
+        $task = ActivityTask::find($taskId);
 
-//     if ($status) {
-//         ActivityTask::updateStatus($id, $status);
-//         SessionHelper::flash('success', 'Task status updated.');
-//     }
+        if (!$task) {
+            SessionHelper::flash('error', 'Task not found.');
+            header("Location: {$this->baseUrl}activities");
+            exit;
+        }
 
-//     header("Location: {$this->baseUrl}activities");
-//     exit;
-// }
+        $history = ActivityTaskHistory::getHistoryByTaskId($taskId);
+
+        $this->view('activities/task_history', [
+            'task' => $task,
+            'history' => $history,
+            'base_url' => $this->baseUrl
+        ]);
+    }
+
 
 
 }

@@ -1,4 +1,4 @@
-<h2>View Activity</h2>
+<h3>View Activity</h3>
 
 <p><strong>Title:</strong> <?= htmlspecialchars($activity->title) ?></p>
 <p><strong>Date:</strong> <?= htmlspecialchars($activity->activity_date) ?></p>
@@ -13,5 +13,7 @@
         </li>
     <?php endforeach; ?>
 </ul>
+
+<br><br>
 
 <a href="<?= $base_url ?>activities">Back to Activities</a>

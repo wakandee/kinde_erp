@@ -1,4 +1,5 @@
-<h2><?= isset($user) ? 'Edit User' : 'Add New User' ?></h2>
+<h3><?= isset($user) ? 'Edit User' : 'Add New User' ?></h3>
+<hr><wbr>
 
 <form method="POST" action="<?= isset($user) ? $base_url . 'users/' . $user->id : $base_url . 'users' ?>">
 

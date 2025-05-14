@@ -1,4 +1,5 @@
-	<h2>My Profile</h2>
+	<h3>My Profile</h3>
+	<hr><wbr>
 
 <p><strong>Name:</strong> <?= htmlspecialchars($user->name); ?></p>
 <p><strong>Email:</strong> <?= htmlspecialchars($user->email); ?></p>

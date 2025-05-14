@@ -1,4 +1,4 @@
-<h2>Task Comment History</h2>
+<h3>Task Comment History</h3>
 
 <p><strong>Task:</strong> <?= htmlspecialchars($task->task) ?></p>
 
@@ -23,4 +23,5 @@
     </tbody>
 </table>
 
-<a href="<?= $base_url ?>activities">Back to Activities</a>
+<br><br>
+<p><a href="<?= $base_url ?>activities">← Back to Activities</a></p>

@@ -1,5 +1,6 @@
 <h3>Designations </h3>
-<a href="<?= $base_url ?>designations/create">+ Add New Designation</a>
+<hr>
+<a href="<?= $base_url ?>designations/create">+ Add New Designation</a><br><br>
 
 <table border="1" cellpadding="6">
     <thead>

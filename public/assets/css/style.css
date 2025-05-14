@@ -1,44 +1,76 @@
 
-.container {
-    padding: 20px;
+/* General Styles */
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-footer {
-    background: #eee;
-    padding: 10px;
-    text-align: center;
-
+body.light-mode {
+    background-color: #fff;
+    color: #000;
 }
 
-header {
-    background: #eee;
-    padding: 4px 10px;
-    text-align: center;
+
+/* Dark Mode Styles */
+/*body.dark-mode {
+    background: #333;
+    color: #ffffff;
+}
+
+body.dark-mode .app-header {
+    background: #333;
+    color: #fff;
+}
+
+body.dark-mode .nav-link {
+    color: #fff;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #ddd;
+}
+*/
+
+/* Layout */
+.main-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
 }
 
-header nav{
-     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+
+
+
+
+
+/* Footer Styles */
+.app-footer {
+    background: #eee;
+    padding: 6px 10px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
-/* Header Layout */
-/*.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-footer {
+        padding: 20px;
+    }
+}
+
+/* Header Styles */
+.app-header {
+    background: #eee;
     padding: 10px 20px;
-    background-color: #f4f4f4;
-    border-bottom: 1px solid #ddd;
-}*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-/* Logo and Title */
 .logo-title {
     display: flex;
     align-items: center;
@@ -50,11 +82,201 @@ header nav{
     width: auto;
 }
 
-.logo-title h3 {
+.logo-title h3{
     margin: 0;
     font-size: 1.5rem;
-    color: #333;
+    color: inherit;
 }
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-link {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*
+.layout {
+    display: flex;
+}*/
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    min-height: 80vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    padding-right: 0;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #e0e0e0;
+}
+
+.sidebar nav ul li.active a {
+    background-color: #fff;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar nav ul li a i {
+    color: #666;
+    transition: color 0.3s;
+}
+
+.sidebar nav ul li.active a i {
+    color: #000;
+}
+
+/* Toggle Button */
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Responsive: Collapse sidebar on small screens */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.collapsed {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .main-content {
+        padding-left: 10px;
+    }
+}
+
+
+
+
+/* Sidebar overlay (for mobile) */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    transition: opacity 0.3s ease;
+}
+
+/* Show overlay when sidebar is active */
+.sidebar.collapsed ~ .sidebar-overlay {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
 
 /* Navigation */
 .main-nav {
@@ -82,68 +304,6 @@ header nav{
 /* Dark mode JS toggle script (to be added inline or separate file) */
 
 
-
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-body.light-mode {
-    background-color: #fff;
-    color: #000;
-}
-
-body.dark-mode {
-    background-color: #121212;
-    color: #fff;
-}
-
-/* Layout */
-.main-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #f4f4f4;
-    padding: 20px;
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
-    padding: 10px 0;
-}
-
-.sidebar nav ul li:hover {
-    background: #eee;
-}
-
-.sidebar nav ul li.active {
-    background-color: #ddd;
-    font-weight: bold;
-}
-
-.sidebar nav ul li.active a {
-    color: #000;
-}
-
-
-.sidebar nav ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.content {
-    flex: 1;
-    padding: 20px;
-}
 
 /* Header */
 /*header {
@@ -192,21 +352,249 @@ body.dark-mode {
 
 
 /* Flash message styling */
+/* Flash message container */
+#flash-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    z-index: 1000;
+}
+
+/* Flash message styling */
 .alert {
+    position: relative;
     padding: 15px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     border-radius: 5px;
     font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .alert-success {
     background-color: #d4edda;
     color: #155724;
-    border: 1px solid #c3e6cb;
+    border-left: 5px solid #155724;
 }
 
 .alert-danger {
     background-color: #f8d7da;
     color: #721c24;
-    border: 1px solid #f5c6cb;
+    border-left: 5px solid #721c24;
+}
+
+/* Close button */
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: inherit;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Progress bar */
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    animation: progressBar 4s linear forwards;
+}
+
+/* Animation for progress bar */
+@keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0; }
+}
+
+
+
+
+.remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 8px;
+}
+.task_row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/* ========== GENERAL DARK MODE ========== */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========== HEADER DARK MODE ========== */
+body.dark-mode .app-header {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Nav link styles */
+body.dark-mode .nav-link {
+    color: #e0e0e0;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #ffffff;
+}
+
+
+
+/* ========== FOOTER DARK MODE ========== */
+body.dark-mode .app-footer {
+    background-color: #1e1e1e;
+    color: #ccc;
+    box-shadow: 0 -2px 4px rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ========== CONTENT AREA ========== */
+body.dark-mode main,
+body.dark-mode .main-content {
+    background-color: #181818;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 10px;
+}
+
+
+
+
+
+
+
+
+/* ========== DARK MODE FOR MAIN CONTENT ========== */
+body.dark-mode .main-content {
+    background-color: #2b2b2b; /* Dark gray background like ChatGPT */
+    color: #e0e0e0;
+}
+
+/* Main content area for dark mode */
+body.dark-mode {
+    background-color: #2b2b2b; /* dark charcoal, similar to ChatGPT */
+    color: #e0e0e0;            /* light gray text */
+}
+
+/* Optional: lighten card or content boxes */
+body.dark-mode main,
+body.dark-mode .main-content {
+    background-color: #383838;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== DARK MODE FOR SIDEBAR ========== */
+body.dark-mode .sidebar {
+    background-color: #1e1e1e;
+/*    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.5);*/
+}
+
+/* Sidebar nav links in dark mode */
+body.dark-mode .sidebar nav ul li a {
+    color: #ccc;
+    background-color: transparent;
+}
+
+body.dark-mode .sidebar nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .sidebar nav ul li.active a {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: 0 0 5px rgba(255,255,255,0.05);
+}
+
+body.dark-mode .sidebar nav ul li.active a i {
+    color: #fff;
+}
+
+/* Adjust sidebar icon color on hover */
+body.dark-mode .sidebar nav ul li a i {
+    color: #aaa;
+}
+
+body.dark-mode .sidebar nav ul li a:hover i {
+    color: #fff;
+}
+
+
+
+
+
+body.dark-mode header,
+body.dark-mode footer {
+    background-color: #1f1f1f;
+    color: #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .app-header .main-nav a,
+body.dark-mode .app-header button {
+    color: #ccc;
+}
+
+
+
+
+
+
+body,
+.app-header,
+.sidebar,
+.app-footer,
+.nav-link,
+.main-content {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }

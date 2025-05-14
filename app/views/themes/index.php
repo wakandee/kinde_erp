@@ -6,7 +6,8 @@
 </ul> -->
 
 
-<h2>UI Theme Preferences</h2>
+<h3>UI Theme Preferences</h3>
+<br><hr>
 <form method="POST" action="<?= $this->baseUrl ?>themes/update">
     <label for="theme">Select Theme:</label>
     <select name="theme">

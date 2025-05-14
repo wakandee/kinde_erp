@@ -53,3 +53,28 @@
 - No deletes allowed, edits tracked completely
 - Consider full audit logging via Laravel events in future
 
+
+
+
+
+---------------------------------------------------------------
+## [2025-05-14] - Task Update System Refactor
+
+### Added
+- `activity_task_updates` table for tracking task status changes and comments.
+- UI support for viewing task comment history.
+- Dynamic comment box toggle based on status (e.g., hides for "Done").
+
+### Changed
+- Moved all database interactions from controllers to model layer (`ActivityTask`).
+- Enforced one-time edit policy after status update or mark as edited.
+- Required comment on status change (except for "Done").
+
+### Fixed
+- Missing `status_comment` column reference removed.
+- Unregistered `Database` class usage in controllers replaced with model logic.
+- Status options visibility issue in dropdown corrected by explicitly passing options to the view.
+
+### Notes
+- System now maintains a full audit trail of all task updates.
+- Inline comment field removed from `activity_tasks`, migrated to `activity_task_updates`.

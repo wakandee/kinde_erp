@@ -11,8 +11,8 @@ $currentTab = UrlHelper::getCurrentTab();
             <li class="<?= $currentTab === '' ? 'active' : '' ?>">
                 <a href="<?= $base_url ?>">Dashboard</a>
             </li>
-            <li class="<?= $currentTab === 'tracker' ? 'active' : '' ?>">
-                <a href="<?= $base_url ?>tracker">Activity Tracker</a>
+            <li class="<?= $currentTab === 'activities' ? 'active' : '' ?>">
+                <a href="<?= $base_url ?>activities">Activity Tracker</a>
             </li>
             <li class="<?= $currentTab === 'departments' ? 'active' : '' ?>">
                 <a href="<?= $base_url ?>departments">Departments</a>

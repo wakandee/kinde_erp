@@ -79,8 +79,30 @@ $router->get('/theme/switch/:theme', 'ThemeController@switch');
 // $router->get('/tracker/create',                 'TrackerController@create');
 
 // ─── Activity Tracker Phase 4 ────────────────────────────────────────────────
-$router->get('/activity/create', 'ActivityController@create'); // Form to add
-$router->post('/activity',       'ActivityController@store');  // Store action
+// ─── Activity Tracker Routes ────────────────────────────────────────────────
+$router->get('/activities',                 'ActivityController@index');
+$router->get('/activities/create',          'ActivityController@create');
+$router->post('/activities/store',                'ActivityController@store');
+
+$router->get('/activities/edit/{id}',       'ActivityController@edit');
+$router->post('/activities/update/{id}',    'ActivityController@update');
+
+$router->get('/activities/update_status/{id}', 'ActivityController@edit_status');
+$router->post('/activities/update_status/{id}', 'ActivityController@update_status');
+
+$router->get('/activities/remarks/{week}',  'ActivityController@weekly_remarks');
+$router->post('/activities/remarks/{week}', 'ActivityController@store_remark');
+
+$router->get('/activities/show/{id}', 'ActivityController@show');
+
+$router->get('/activities/tasks/{id}/edit',  'ActivityController@edit_task');
+$router->post('/activities/tasks/{id}/update', 'ActivityController@update_task');
+$router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
+$router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
+
+
+
+
 
 
 //$router->post('/themes',                 'ThemeController@update');

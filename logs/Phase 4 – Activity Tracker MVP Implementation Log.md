@@ -46,3 +46,19 @@ Date: 2025-05-13
 - Task inputs dynamically repeat and index properly
 - Linked controller to pass user data and render form
 - Prepped for storing each task as individual rows in 'activity_tasks' table
+
+
+## [Phase 4 Log] - Activity Tracker Implementation
+
+### ✅ 2025-05-13
+- Created and migrated:
+  - `activities`
+  - `activity_tasks`
+  - `activity_task_edits`
+  - `activity_weekly_remarks`
+- Added `ActivityController::store()`:
+  - Inserts new activity (date, week, title, user_id)
+  - Handles multiple task rows (title, assignee, deliverable, resource)
+  - Defaults status to "Not started"
+
+

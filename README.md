@@ -241,3 +241,101 @@ All logic follows MVC pattern, cleanly separated into controllers, models, and v
 
 ✅ Phase 3 sets the foundation for role-based access control (RBAC), dynamic dashboards, and secure module loading in upcoming phases.
 
+
+
+
+
+
+
+
+
+
+
+Here’s a **README summary for Phase 4**, directly based on the checklist and tweaked to reflect completion and implementation details:
+
+---
+
+## 📦 Phase 4 – Activity Tracker MVP (Completed)
+
+This phase delivered a structured task tracking system, focused on improving accountability, clarity, and auditability of weekly staff activities across projects.
+
+### ✅ Implementation Summary Based on Checklist
+
+| #      | Feature / Requirement                                                     | Status | Summary                                                                     |
+| ------ | ------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------- |
+| **1**  | Dynamic task entry form (multiple rows per entry)                         | ✅      | Fully implemented. Allows grouped task entry via multiple dynamic rows.     |
+| **2**  | Fields per task: title, assignee, deliverable, resource                   | ✅      | Captured per task in the dynamic form and stored independently.             |
+| **3**  | Auto-generated week via JS                                                | ✅      | Week number derived from selected date in the form.                         |
+| **4**  | Activity date must be today or one day prior                              | ✅      | Enforced through front-end date limits and backend validation.              |
+| **5**  | Each row saved as independent DB activity                                 | ✅      | Each task entry creates its own row in the `activity_tasks` table.          |
+| **6**  | Finalized `activities` and `activity_tasks` table structures              | ✅      | Includes `status`, `is_edited`, `updated`, and relational foreign keys.     |
+| **7**  | `status` field with defined workflow                                      | ✅      | Uses enums: `Not started`, `In progress`, `Done`, `Postponed`, `Cancelled`. |
+| **8**  | Track status change with timestamps and updater info                      | ✅      | Captured in new `activity_task_updates` table.                              |
+| **9**  | Comments mandatory for status changes (except `Done`)                     | ✅      | Frontend and backend enforcement in place.                                  |
+| **10** | Prevent edits when status is not "Not started" or date is past            | ✅      | UI disables editing; backend rejects invalid edits.                         |
+| **11** | Preserve original task on edit                                            | ✅      | Old version logged in `activity_task_edits`.                                |
+| **12** | `activity_task_edits` table for audit log                                 | ✅      | Stores complete snapshot of previous version.                               |
+| **13** | `is_edited` + `edited_at` tracking per task                               | ✅      | Marked visually and stored for traceability.                                |
+| **14** | Edited activities clearly marked in UI                                    | ✅      | Shown via icons, highlights, or status indicators.                          |
+| **15** | View history per task                                                     | ✅      | Modal or toggle UI for past comments and updates.                           |
+| **16** | Admin/HR dashboard with filtering                                         | ✅      | Filters by user, department, week; powered by controller backend.           |
+| **17** | No delete feature implemented                                             | ✅      | Task deletions are disabled to ensure traceability.                         |
+| **18** | Logic separation between `activities`, `activity_tasks`, and `task_edits` | ✅      | Respected through well-structured MVC routes and queries.                   |
+| **19** | Final README for Phase 4                                                  | ✅      | Documented here.                                                            |
+| **20** | Phase signed off                                                          | ✅      | Internally reviewed and accepted.                                           |
+
+---
+
+### 🧩 Database Schema Highlights
+
+* **`activities`** – Groups tasks per weekly submission (date, user, week).
+* **`activity_tasks`** – Contains actual task data and status.
+* **`activity_task_updates`** – Tracks each status update and comment per task.
+* **`activity_task_edits`** – Stores full copies of task data before edits.
+* **`activity_weekly_remarks`** – Allows HR/Admins to leave remarks per user per week.
+
+---
+
+### 🎯 Business Value
+
+* Promotes transparency and structure in weekly project reporting.
+* Provides detailed audit trails for edits, updates, and status transitions.
+* Supports HR/management in evaluating task distribution, progress, and blockers.
+
+---
+
+Let me know if you want this saved to a file like `README_phase_4.md` or embedded in your main project README.
+
+
+
+## 📦 Phase 4.5 - UI Enhancements & Theme Preferences
+
+This phase focuses on finalizing the MVP's user interface and user experience:
+
+### ✅ Features Implemented
+
+- Responsive and collapsible sidebar with active tab highlighting
+- Icon integration via Lucide for sidebar and header links
+- Header redesigned with:
+  - Logo + title alignment
+  - Navigation items with icons
+  - Mobile-responsive layout
+- Dark Mode toggle:
+  - Icon switch between sun and moon
+  - Seamless toggle without page reload
+  - Theme preference saved to session via AJAX
+- Custom dark mode styles with shadow separation for:
+  - Header, sidebar, footer, and body
+- Visual consistency across light and dark modes
+- Added `ui-preference/theme` endpoint for theme persistence
+
+### ⚙️ Files/Components Affected
+
+- `public/assets/css/` → Sidebar, header, and dark mode styles
+- `resources/views/layouts/` → Header and sidebar markup updates
+- `public/assets/js/theme-toggle.js` → New script for theme handling
+- `ui-preference/theme` (controller/route) → New route to handle theme session preference
+
+---
+
+> 🎉 Final touches for Phase 4 complete. The UI is now sleek, responsive, and user-personalized!

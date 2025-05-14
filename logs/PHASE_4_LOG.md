@@ -93,3 +93,16 @@
 
 ### Notes
 - Currently supports one edit per task. Future versions may allow multiple edit versions.
+
+
+## [4.5.0] - 2025-05-14
+
+### Added
+- Theme toggle button with dynamic icon change
+- Persistent dark mode preference saved via AJAX
+- Responsive sidebar with icon highlights
+- Redesigned header with Lucide icons and mobile support
+
+### Changed
+- Sidebar and body styles for light/dark separation
+- Improved overall mobile responsiveness

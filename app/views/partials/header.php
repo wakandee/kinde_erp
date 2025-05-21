@@ -1,7 +1,7 @@
 <header class="app-header">
     <div class="logo-title">
-        <img src="<?= $base_url . 'assets/icons/KINDE.jpg' ?>" alt="Kinde ERP Logo">
-        <h3>Kinde ERP</h3>
+        <img src="<?= $base_url . 'assets/img/KINDE.png' ?>" alt="Kinde ERP Logo">
+        <h3><small>Kinde Weekly Planner</small></h3>
     </div>
     
     <nav class="main-nav">

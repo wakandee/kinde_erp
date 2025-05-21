@@ -5,6 +5,8 @@
 body, html {
     margin: 0;
     padding: 0;
+    width: 100%;
+/*    border: 1px solid hotpink;*/
     font-family: Arial, sans-serif;
 }
 
@@ -48,17 +50,18 @@ body.dark-mode .nav-link:hover {
 /* Footer Styles */
 .app-footer {
     background: #eee;
-    padding: 6px 10px;
+    padding: 6px 0px;
     text-align: center;
     position: relative;
     bottom: 0;
-    width: 100%;
+    width: 98%;
+    margin: 0 auto;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .app-footer {
-        padding: 20px;
+        padding: 20px 5px;
     }
 }
 
@@ -450,6 +453,8 @@ body.dark-mode {
     color: #e0e0e0;
     margin: 0;
     padding: 0;
+    width: 100%;
+
 }
 
 /* ========== HEADER DARK MODE ========== */
@@ -475,6 +480,7 @@ body.dark-mode .nav-link:hover {
 body.dark-mode .app-footer {
     background-color: #1e1e1e;
     color: #ccc;
+    width: 99%;
     box-shadow: 0 -2px 4px rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -597,4 +603,156 @@ body,
 .nav-link,
 .main-content {
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------
+  GLOBAL TABLE STYLES FOR ERP PROJECT
+-------------------------------------------*/
+
+/* 1) Light-mode variables */
+:root {
+  --erp-bg-page:      #f8f9fa;
+  --erp-bg-table:     #ffffff;
+  --erp-border:       #e0e0e0;
+  --erp-text:         #555555;
+  --erp-hover-row:    #f5f5f5;
+  --erp-hover-add:    #e9ecef;
+  --erp-blue:         #007bff;
+  --erp-warning:      #ff8c00;
+}
+
+/* 2) Dark-mode overrides */
+body.dark-mode {
+  --erp-bg-page:   #1e1e1e;
+  --erp-bg-table:  #2b2b2b;
+  --erp-border:    #444444;
+  --erp-text:      #cccccc;
+  --erp-hover-row: #3a3a3a;
+  --erp-hover-add: #444444;
+  --erp-blue:      #4ea8de;
+  --erp-warning:   #ffa502;
+}
+
+/* 3) Base on <body> */
+/*body {
+  background-color: var(--erp-bg-page);
+  color: var(--erp-text);
+}*/
+
+
+
+
+/* 4) All tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: var(--erp-bg-table);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+body.dark-mode table th{
+    background-color: inherit;
+    text-decoration-style: bold;
+}
+
+/* 5) Cells & headers */
+table th,
+table td {
+  padding: 6px 8px;
+  border: 1px solid var(--erp-border);
+  text-align: left;
+}
+
+/* 6) Header row */
+table th {
+  background-color: #f2f2f2;
+  color: var(--erp-text);
+  font-weight: bold;
+}
+
+/* 7) Hover row */
+table tbody tr:hover {
+  background-color: var(--erp-hover-row);
+}
+
+/* 8) “Add-row” variant */
+table tr.add-row td {
+  text-align: left;
+  color: var(--erp-blue);
+  cursor: pointer;
+  font-size: 0.8em;
+}
+table tr.add-row:hover td {
+  background-color: var(--erp-hover-add);
+}
+
+/* 9) Utility badges & icons */
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+.badge--wide {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.owner-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #777;
+}
+.icon-btn svg {
+  width: 16px; height: 16px;
+  fill: currentColor;
+}
+.warning {
+  color: var(--erp-warning);
+  margin-left: 5px;
+}
+
+/*------------------------------------------
+  RESPONSIVE FALLBACK
+-------------------------------------------*/
+@media (max-width: 600px) {
+  /* allow horizontal scroll */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* tighter cells on mobile */
+  table th,
+  table td {
+    padding: 8px 10px;
+    font-size: 0.85em;
+  }
 }

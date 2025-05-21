@@ -1,4 +1,5 @@
-<?php use App\Helpers\SessionHelper; ?>
+<?php use App\Helpers\SessionHelper;
+    use App\Helpers\RBACHelper;  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +8,7 @@
     <title><?= htmlspecialchars($title ?? 'Kinde ERP', ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="<?= $base_url ?>assets/css/style.css">
     <script src="<?= $base_url ?>assets/js/main.js" defer></script>
-    <link rel="icon" type="image/png" href="<?= $base_url ?>assets/icons/favicon.png">
+    <link rel="icon" type="image/png" href="<?= $base_url ?>assets/icons/smallicon.png">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <?php

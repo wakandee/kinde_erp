@@ -1,5 +1,13 @@
+<?php
+$departments  = $departments  ?? [];
+$designations = $designations ?? [];
+
+
+// var_dump($user);
+?>
+
 <h3><?= isset($user) ? 'Edit User' : 'Add New User' ?></h3>
-<hr><wbr>
+<hr>
 
 <form method="POST" action="<?= isset($user) ? $base_url . 'users/' . $user->id : $base_url . 'users' ?>">
 
@@ -32,7 +40,7 @@
     <select name="designation_id" required>
         <option value="">-- Select Designation --</option>
         <?php foreach ($designations as $des): ?>
-            <option value="<?= $des->designation_id ?>" <?= (isset($user) && $user->designation_id == $des->designation_id) ? 'selected' : '' ?>>
+            <option value="<?= $des->designation_id ?? $des->id ?>" <?= (isset($user) && $user->designation_id == ($des->designation_id ?? $des->id)) ? 'selected' : '' ?>>
                 <?= htmlspecialchars($des->name) ?>
             </option>
         <?php endforeach; ?>
@@ -42,29 +50,32 @@
 </form>
 
 <script>
-    document.querySelector('select[name="department_id"]').addEventListener('change', function () {
-        const departmentId = this.value;
-        const designationSelect = document.querySelector('select[name="designation_id"]');
+document.querySelector('select[name="department_id"]').addEventListener('change', function () {
+    const departmentId = this.value;
+    const designationSelect = document.querySelector('select[name="designation_id"]');
+    const currentDesignationId = <?= isset($user) ? (int)$user->designation_id : 'null' ?>;
 
-        if (!departmentId) {
+    if (!departmentId) {
+        designationSelect.innerHTML = '<option value="">-- Select Designation --</option>';
+        return;
+    }
+
+    fetch('<?= $base_url ?>designations/by-department/' + departmentId)
+        .then(response => response.json())
+        .then(data => {
             designationSelect.innerHTML = '<option value="">-- Select Designation --</option>';
-            return;
-        }
-
-        fetch('<?= $base_url ?>designations/by-department/' + departmentId)
-            .then(response => response.json())
-            .then(data => {
-                designationSelect.innerHTML = '<option value="">-- Select Designation --</option>';
-                data.forEach(designation => {
-                    const option = document.createElement('option');
-                    option.value = designation.id;
-                    option.textContent = designation.name;
-                    designationSelect.appendChild(option);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading designations:', error);
+            data.forEach(designation => {
+                const option = document.createElement('option');
+                option.value = designation.id;
+                option.textContent = designation.name;
+                if (designation.id == currentDesignationId) {
+                    option.selected = true;
+                }
+                designationSelect.appendChild(option);
             });
-    });
-    </script>
-
+        })
+        .catch(error => {
+            console.error('Error loading designations:', error);
+        });
+});
+</script>

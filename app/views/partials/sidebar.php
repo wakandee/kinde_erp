@@ -1,84 +1,67 @@
 <?php
 use App\Helpers\UrlHelper;
+use App\Middleware\Rbac;
 
-$base_url = UrlHelper::getBaseUrl();
+$base_url   = UrlHelper::getBaseUrl();
 $currentTab = UrlHelper::getCurrentTab();
+// $allowed    = MenuHelper::allowedViewRoutes();
+
+// var_dump($currentTab);
+
+// Sidebar items: [ path => [icon, label], … ]
+$items = [
+    ''                           => ['home',             'Dashboard'],
+    'activities'                 => ['clipboard-list',   'Activity Tracker'],
+    'departments'                => ['building',         'Departments'],
+    'designations'               => ['badge-check',      'Designations'],
+    'users'                      => ['users',            'Staff'],
+
+    // ─── RBAC Management ──────────────────────────────────────
+    'rbac_module_groups'  => ['layers',           'Module Groups'],
+    'rbac_routes'         => ['list-check',       'Manage Routes'],
+    // 'rbac_permissions'    => ['key-round',        'Permissions'],
+    'rbac_access_control' => ['settings',         'Access Control'],
+
+    // Always visible:
+    'profile'                    => ['user-circle',      'Profile'],
+];
 
 ?>
-<!-- Toggle Button -->
-<button class="sidebar-toggle" id="sidebarToggle">
-    <i data-lucide="menu"></i>
-</button>
 
+<button class="sidebar-toggle" id="sidebarToggle"><i data-lucide="menu"></i></button>
+<aside class="sidebar" id="sidebar">
+  <nav>
+    <ul>
+      <?php
+      foreach ($items as $path => [$icon,$label]) {
+          if (! in_array($path, ['', 'profile'], true)
+           && ! Rbac::check('View', $path)) {
+              continue;
+          }
+          $active = $currentTab === $path ? ' active' : '';
+          echo "<li class=\"{$active}\"><a href=\"{$base_url}{$path}\">
+                   <i data-lucide=\"{$icon}\"></i> {$label}
+                </a></li>";
+      }
+      ?>
+    </ul>
+  </nav>
+</aside>
 
-    <aside class="sidebar" id="sidebar">
-        <nav>
-            <ul>
-                <li class="<?= $currentTab === '' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>">
-                        <i data-lucide="home"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="<?= $currentTab === 'activities' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>activities">
-                        <i data-lucide="clipboard-list"></i>
-                        Activity Tracker
-                    </a>
-                </li>
-                <li class="<?= $currentTab === 'departments' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>departments">
-                        <i data-lucide="building"></i>
-                        Departments
-                    </a>
-                </li>
-                <li class="<?= $currentTab === 'designations' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>designations">
-                        <i data-lucide="badge-check"></i>
-                        Designations
-                    </a>
-                </li>
-                <li class="<?= $currentTab === 'users' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>users">
-                        <i data-lucide="users"></i>
-                        Staff
-                    </a>
-                </li>
-                <li class="<?= $currentTab === 'profile' ? 'active' : '' ?>">
-                    <a href="<?= $base_url ?>profile">
-                        <i data-lucide="user-circle"></i>
-                        Profile
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= $base_url ?>logout">
-                        <i data-lucide="log-out"></i>
-                        Logout
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-
-    
-
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <script>
-    lucide.createIcons();
+  lucide.createIcons();
+  const toggle  = document.getElementById("sidebarToggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebarOverlay");
 
-    const toggle = document.getElementById("sidebarToggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("sidebarOverlay");
-
-    toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-        overlay.style.display = sidebar.classList.contains("collapsed") ? 'block' : 'none';
-    });
-
-    overlay.addEventListener("click", () => {
-        sidebar.classList.remove("collapsed");
-        overlay.style.display = 'none';
-    });
+  toggle.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+    overlay.style.display = sidebar.classList.contains("collapsed") ? 'block' : 'none';
+  });
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("collapsed");
+    overlay.style.display = 'none';
+  });
 </script>

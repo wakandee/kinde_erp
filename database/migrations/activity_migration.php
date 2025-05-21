@@ -20,7 +20,7 @@ $sql = "
 CREATE TABLE IF NOT EXISTS activity_tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
     activity_id INT NOT NULL,
-    task VARCHAR(255) NOT NULL,
+    task_title VARCHAR(255) NOT NULL,
     assignee_id INT NOT NULL,
     deliverable TEXT,
     resource TEXT,
@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS activity_tasks (
 ";
 $pdo->exec($sql);
 echo "activity_tasks table created.\n";
+
+
 
 $sql = "
 CREATE TABLE IF NOT EXISTS activity_task_history (

@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Activity;
 use App\Models\ActivityTask;
 // use App\Helpers\AuthHelper;
+use App\Middleware\Rbac;
+use App\Helpers\RBACHelper; 
 
 // use App\Models\ActivityTaskEdit;
 use App\Models\ActivityTaskHistory; 
@@ -21,28 +23,71 @@ class ActivityController extends Controller
     public function __construct()
     {
         Auth::handle();  // Protect all activity routes
-        parent::__construct();
+        // Auth::handle();             // ensure logged in
+        // Rbac::handle('View');       // enforce “View” permission
+        parent::__construct();      // load base URL, etc.
     }
 
-    public function index()
+
+public function index()
     {
         $userId = SessionHelper::get('user_id');
 
-        // Get tasks assigned to this user
-        $tasks = ActivityTask::getByUserId($userId);
+        // Read filters
+        $interval  = $_GET['interval']  ?? 'daily';
+        $picker    = $_GET['picker']    ?? date('Y-m-d');
+        $status    = $_GET['status']    ?? '';    // status filter
 
-        // Extract task IDs
-        $taskIds = array_map(fn($task) => $task->task_id, $tasks);
+        // Persist into session for reload
+        SessionHelper::set('interval', $interval);
+        SessionHelper::set('picker',   $picker);
+        SessionHelper::set('status',   $status);
 
-        // Get latest comments from the model
+        // Compute date range
+        switch ($interval) {
+            case 'weekly':
+                if (strpos($picker, '-W') !== false) {
+                    list($year, $week) = explode('-W', $picker);
+                    $dto = new \DateTime();
+                    $dto->setISODate((int)$year, (int)$week);
+                    $start = $dto->format('Y-m-d');
+                    $end = $dto->modify('+6 days')->format('Y-m-d');
+                } else {
+                    // Fallback to today's week if invalid input
+                    $dto = new \DateTime();
+                    $dto->setISODate((int)date('Y'), (int)date('W'));
+                    $start = $dto->format('Y-m-d');
+                    $end = $dto->modify('+6 days')->format('Y-m-d');
+                }
+                break;
+
+            case 'monthly':
+                list($year, $month) = explode('-', $picker);
+                $start = sprintf('%04d-%02d-01', $year, $month);
+                $end = (new \DateTime($start))->modify('last day of this month')->format('Y-m-d');
+                break;
+            default:
+                $start = $picker;
+                $end = $picker;
+        }
+
+        // Fetch tasks
+        $tasks = ActivityTask::getByUserIdAndDateRange($userId, $start, $end, $status);
+
+        $taskIds = array_map(fn($t) => $t->task_id, $tasks);
         $latestComments = ActivityTask::getLatestCommentsForTasks($taskIds);
 
-        // Pass data to view
         $this->view('activities/index', [
-            'tasks' => $tasks,
-            'latestComments' => $latestComments,
-        ]);
+        'tasks'          => $tasks,
+        'latestComments' => $latestComments,
+        'interval'       => $interval,
+        'pickerValue'    => $picker,
+        'startDate'      => $start,
+        'endDate'        => $end,
+        'statusFilter'   => $status,
+    ]);
     }
+
 
 
 
@@ -50,35 +95,61 @@ class ActivityController extends Controller
     public function create()
     {
         $currentUserId = SessionHelper::get('user_id');
-        $allUsers = User::all_users_names();
 
-        usort($allUsers, function ($a, $b) use ($currentUserId) {
-            return ($a->id === $currentUserId) ? -1 : (($b->id === $currentUserId) ? 1 : 0);
-        });
+        if (RBACHelper::has_permission('Assign', 'activities_assign')) {
+            // Fetch all users
+            $allUsers = User::all_users_names();
 
-        $this->view('activities/form', ['users' => $allUsers, 'currentUserId' => $currentUserId]);
+            // Sort so that the current user appears first
+            usort($allUsers, function ($a, $b) use ($currentUserId) {
+                if ($a->id === $currentUserId) return -1;
+                if ($b->id === $currentUserId) return 1;
+                return 0;
+            });
+        } else {
+            // No assign permission → only allow self
+            $user          = new \stdClass();
+            $user->id      = $currentUserId;
+            $user->name    = SessionHelper::get('user_name')  // or fetch via User::find($currentUserId)
+                             ?? 'SELF';
+
+            $allUsers = [ $user ];
+        }
+
+        // Pass to the form view
+        $this->view('activities/form', [
+            'users'         => $allUsers,
+            'currentUserId' => $currentUserId,
+        ]);
     }
 
-    public function store()
+
+   public function store()
     {
-        $title = trim($_POST['title']);
-        $date = $_POST['activity_date'];
-        $week = $_POST['week'];
-        $userId = SessionHelper::get('user_id');
+        $userId       = SessionHelper::get('user_id');
+        $activityDate = $_POST['activity_date'];
+        $weekNumber   = $_POST['week'];
 
-        $activityId = Activity::create($title, $date, $week, $userId);
-
-        if (isset($_POST['tasks']) && is_array($_POST['tasks'])) {
+        if (!empty($_POST['tasks']) && is_array($_POST['tasks'])) {
             foreach ($_POST['tasks'] as $task) {
-                // var_dump($task); 
-                ActivityTask::create($activityId, $task);
+                // 1) Create one Activity per task row, using that row’s title
+                $activityId = Activity::create(
+                    trim($task['title']),
+                    $activityDate,
+                    $weekNumber,
+                    $userId
+                );
+
+                // 2) Create the Task under that newly created Activity
+                ActivityTask::create($activityId, $task, $userId);
             }
         }
 
-        SessionHelper::flash('success', 'Activity created.');
+        SessionHelper::flash('success', 'Activities and Tasks created.');
         header("Location: {$this->baseUrl}activities");
         exit;
     }
+
 
     public function edit_task($taskId)
     {
@@ -251,15 +322,22 @@ public function update_task($taskId)
             exit;
         }
 
+        // Prevent update if final status
+        if (in_array($task->status, ['Done', 'Postponed', 'Cancelled'])) {
+            SessionHelper::flash('error', 'Cannot update this task further.');
+            header("Location: {$this->baseUrl}activities");
+            exit;
+        }
+
         // $statusOptions = ActivityTask::getStatusEnumValues();
 
         // Define allowed status options
         $statusOptions = ['Not Started', 'In Progress', 'Done', 'Postponed', 'Cancelled'];
 
-        $this->view('activities/update_status', [
-            'task' => $task,
-            'statusOptions' => $statusOptions
-        ]);
+        // $this->view('activities/update_status', [
+        //     'task' => $task,
+        //     'statusOptions' => $statusOptions
+        // ]);
 
         $this->view('activities/edit_status', [
             'task' => $task,

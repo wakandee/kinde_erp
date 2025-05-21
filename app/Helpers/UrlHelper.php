@@ -21,7 +21,10 @@ class UrlHelper
             $path = substr($path, strlen($basePath));
         }
 
-        $segments = explode('/', trim($path, '/'));
-        return $segments[0] ?? '';
+        return  ltrim($path, '/');
+
+
+        // $segments = explode('/', trim($path, '/'));
+        // return $segments[0].'/'.$segments[1] ?? '';
     }
 }

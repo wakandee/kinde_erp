@@ -11,12 +11,13 @@ class ProfileController extends Controller
     public function __construct()
     {
         Auth::handle();
+        parent::__construct(); 
     }
 
     public function index()
     {
         $userId = SessionHelper::get('user_id');
-        $user   = User::find($userId);
+        $user   = User::user_profile($userId);
         $this->view('profile/index', ['user' => $user]);
     }
 
@@ -35,26 +36,52 @@ class ProfileController extends Controller
     {
         $userId          = SessionHelper::get('user_id');
         $currentPassword = $_POST['current_password'] ?? '';
-        $newPassword     = $_POST['new_password'] ?? '';
+        $newPassword     = $_POST['new_password']     ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
 
-        $user = User::find($userId);
-
-        if (!password_verify($currentPassword, $user->password)) {
-            return $this->indexWithError('Current password is incorrect.');
+        // 1) Fetch the user
+        $user = User::find_user($userId);
+        if (! $user) {
+            SessionHelper::flash('error', 'User not found.');
+            header("Location: {$this->baseUrl}change-password");
+            exit;
         }
+
+        // 2) Verify current password
+        if (! password_verify($currentPassword, $user->password)) {
+            SessionHelper::flash('error', 'Current password is incorrect.');
+            header("Location: {$this->baseUrl}change-password");
+            exit;
+        }
+
+        // 3) Check new vs confirm
         if ($newPassword !== $confirmPassword) {
-            return $this->indexWithError('New passwords do not match.');
+            SessionHelper::flash('error', 'New passwords do not match.');
+            header("Location: {$this->baseUrl}change-password");
+            exit;
         }
 
-        User::updatePassword($userId, password_hash($newPassword, PASSWORD_DEFAULT));
-        header("Location: {$this->baseUrl}profile");
+        // 4) Attempt to update
+        $hashed = password_hash($newPassword, PASSWORD_DEFAULT);
+        if (User::updatePassword($userId, $hashed)) {
+            SessionHelper::flash('success', 'Password changed successfully.');
+            header("Location: {$this->baseUrl}profile");
+        } else {
+            SessionHelper::flash('error', 'An error occurred. Please try again.');
+            header("Location: {$this->baseUrl}change-password");
+        }
         exit;
     }
 
-    protected function indexWithError(string $error)
+
+
+    /**
+     * GET  /change-password
+     */
+    public function showChangePasswordForm()
     {
-        $user = User::find(SessionHelper::get('user_id'));
-        $this->view('profile/index', ['user' => $user, 'error' => $error]);
+        // Pull any one‐time error message
+        // $error = SessionHelper::pull('password_error');
+        $this->view('profile/change-password');
     }
 }

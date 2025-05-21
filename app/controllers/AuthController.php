@@ -6,6 +6,7 @@ use App\Helpers\SessionHelper;
 use App\Core\Database;
 use App\Models\User;
 use App\Models\PasswordReset;
+use App\Models\UserDesignationRole;
 
 class AuthController extends Controller
 {
@@ -42,6 +43,11 @@ class AuthController extends Controller
         SessionHelper::set('user_id', $user->id);
         SessionHelper::set('username', $user->username);
         SessionHelper::set('base_url', $this->baseUrl);
+        SessionHelper::set('designation_id',$user->designation_id);
+
+        // After $_SESSION['designation_id'] = $designationId;
+        $_SESSION['user_permissions'] = UserDesignationRole::getPermByDesignation($user->designation_id);
+
 
         SessionHelper::flash('success', 'Welcome back, ' . $user->username . '!');
         header("Location: {$this->baseUrl}");

@@ -9,7 +9,6 @@ use App\Core\Router;
 $router->get('/', 'HomeController@index');
 $router->post('ui-preference/theme', 'UiPreferenceController@setTheme');
 
-
 // ─── Authentication ────────────────────────────────────────────────────────────
 // Show login form & process login
 $router->get('/login', 'AuthController@showLoginForm');
@@ -64,9 +63,10 @@ $router->post('/designations/update/{id}',      'DesignationController@update');
 // View & update own profile
 $router->get('/profile',                 'ProfileController@index');
 $router->post('/profile/update',         'ProfileController@update');
-
-// Change password from profile
 $router->post('/profile/change-password','ProfileController@changePassword');
+
+$router->get( '/change-password',  'ProfileController@showChangePasswordForm' );
+$router->post('/change-password',  'ProfileController@changePassword' );
 
 // ─── UI Themes ─────────────────────────────────────────────────────────────────
 // View theme options & save selection
@@ -75,13 +75,9 @@ $router->get('/theme/switch/:theme', 'ThemeController@switch');
 //$router->get('/theme/switch/{theme}', 'ThemeController@switch');
 
 
-// ─── Activity Tracker ────────────────────────────────────────────────────────
+// ─── Activity Tracker Routes Phase 4 ────────────────────────────────────────────────────────
 // View, add and manage activites
-// $router->get('/tracker',                 'TrackerController@index');
-// $router->get('/tracker/create',                 'TrackerController@create');
 
-// ─── Activity Tracker Phase 4 ────────────────────────────────────────────────
-// ─── Activity Tracker Routes ────────────────────────────────────────────────
 $router->get('/activities',                 'ActivityController@index');
 $router->get('/activities/create',          'ActivityController@create');
 $router->post('/activities/store',                'ActivityController@store');
@@ -101,11 +97,29 @@ $router->get('/activities/tasks/{id}/edit',  'ActivityController@edit_task');
 $router->post('/activities/tasks/{id}/update', 'ActivityController@update_task');
 $router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
 $router->get('/activities/tasks/{id}/comments', 'ActivityController@view_task_comments');
-
 $router->get('activities/tasks/{id}/history', 'ActivityController@view_task_history');
 
 
+// ─── RBAC Management ────────────────────────────────────────────────────────────
+$router->get  ('/rbac_access_control',     'RbacController@index');        // Show matrix page
+$router->get  ('/rbac/matrix/{id}',       'RbacController@getMatrix');   // AJAX: fetch matrix for designation
+$router->post ('/rbac/matrix/save',      'RbacController@saveMatrix');  // AJAX: save updates
+
+// ─── RBAC: Route Groups CRUD ──────────────────────────────────────────────────
+$router->get('rbac_module_groups',        'RbacController@manage_module_groups'); // fetch routes
+$router->post('/rbac/saveGroup',        'RbacController@saveGroup'); // create routes
+$router->get('/rbac/editGroup/{id}',    'RbacController@editGroup'); // edit routes
+$router->post('/rbac/updateGroup/{id}', 'RbacController@updateGroup'); //
+$router->post('/rbac/deleteGroup/{id}', 'RbacController@deleteGroup');
+
+// ─── RBAC: Routes CRUD ─────────────────────────────────────────────────────────
+$router->get('rbac_routes',        'RbacController@manage_routes');
+$router->post('/rbac/saveRoute',        'RbacController@saveRoute');
+$router->get('rbac_editRoute/{id}',    'RbacController@editRoute');
+$router->post('/rbac/updateRoute/{id}', 'RbacController@updateRoute');
+$router->post('/rbac/deleteRoute/{id}', 'RbacController@deleteRoute');
+
+// ─── RBAC: Permissions CRUD ─────────────────────────────────────────────────────────
+$router->get('rbac_permissions',        'RbacController@manage_permissions');
 
 
-
-//$router->post('/themes',                 'ThemeController@update');

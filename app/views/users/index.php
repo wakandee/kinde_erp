@@ -10,6 +10,7 @@
             <th>Username</th>
             <th>Department</th>
             <th>Designation</th>
+            <th>Phone No.</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
             <td><?= htmlspecialchars($user->username); ?></td>
             <td><?= htmlspecialchars($user->department_name ?? 'N/A'); ?></td>
             <td><?= htmlspecialchars($user->designation_name ?? 'N/A'); ?></td>
+            <td><?= htmlspecialchars($user->phone_number ?? 'N/A'); ?></td>
             <td>
                 <a href="<?= $base_url ?>users/edit/<?= $user->id ?>">Edit</a>
                 <a href="<?= $base_url ?>users/destroy/<?= $user->id ?>" onclick="return confirm('Delete this user?')">Delete</a>

@@ -338,4 +338,107 @@ This phase focuses on finalizing the MVP's user interface and user experience:
 
 ---
 
-> 🎉 Final touches for Phase 4 complete. The UI is now sleek, responsive, and user-personalized!
+Phase 5 — Role-Based Access Control (RBAC)
+🧩 Overview
+Phase 5 introduces a dynamic, scalable Role-Based Access Control (RBAC) system to govern what users can see and do within the ERP platform. This is the foundation for permission-aware routing, dynamic UI rendering, and secure controller access enforcement.
+
+🎯 Objectives
+Ensure only authorized users can access or perform operations.
+
+Decouple permission logic from business logic for maintainability.
+
+Allow HR/Admin to configure access per role (designation) via UI.
+
+🏗️ Data Model
+modules: Defines top-level system features (e.g., "Projects", "Users")
+
+permissions: Defines specific actions under modules (e.g., View, Add)
+
+designations: Organizational roles per department
+
+role_permissions: Links designations to specific permissions
+
+users: Linked to a designation, and inherits its permissions
+
+📌 Features Implemented
+Admin interface to create/edit system modules and define available actions.
+
+HR/Admin panel to define Designations and associate them with permissions.
+
+UI-based checkbox matrix for assigning permissions per designation.
+
+Middleware to restrict unauthorized access at route/controller level.
+
+Dynamic sidebar rendering: users only see tabs they have permission to view.
+
+Database-seeded permission tables for extensibility and auditing.
+
+🔐 Example: Permission Enforcement
+User A (Designation: "COO") with permission:
+
+projects: view, projects: edit
+
+Result:
+
+Sidebar shows “Projects”
+
+Can open /projects
+
+Can click “Edit” button
+
+Cannot see “Delete” option
+
+
+## 🛡️ Phase 5: Role-Based Access Control (RBAC)
+
+A robust RBAC system was integrated to manage user access across routes and actions within the ERP.
+
+### Features
+- Route and module management by Super Admins.
+- Centralized permission control per designation.
+- Support for actions like View, Create, Edit, Delete (and custom ones).
+- Dynamic UI visibility control via `has_permission()` and `show_if_has_permission()`.
+- Permission-aware sidebar and form actions.
+- Redundant backend permission enforcement capability.
+
+### Key Tables
+- `user_routes`
+- `user_permissions`
+- `user_designation_roles`
+- `module_groups`
+
+➡️ See full implementation log: [`docs/logs/phase-5-rbac-log.md`](docs/logs/phase-5-rbac-log.md)
+
+## Phase 5: Role-Based Access Control (RBAC) & Dashboard Enhancements
+
+### ✅ Role-Based Access Control (RBAC)
+- Implemented centralized RBAC system with permission types: View, Create, Edit, Delete.
+- Added models and tables:
+  - `user_routes` – route/module registration
+  - `user_permissions` – route-permission mapping
+  - `user_roles` – designation-permission assignments
+  - `module_groups` – grouped routes for sidebar UX
+- Introduced permission-based UI filtering:
+  - Sidebar links auto-hide if access is denied.
+  - Buttons (Create, Edit, Delete) conditionally rendered using `has_permission()`.
+- Middleware protection using centralized `Auth::can()` replaced with `has_permission()` helper.
+- Super Admin CRUD interface to manage routes, roles, and permissions.
+
+### ✅ User Management Fixes
+- Improved `Designation` dropdown to auto-load based on selected Department when editing users.
+
+### ✅ Dashboard Statistics & Charts
+- Current user's dashboard enhanced with:
+  - Weekly task statistics (by status)
+  - Overdue task count
+  - Weekly progress %
+  - Completed vs Pending ratio
+  - Status distribution pie/donut chart
+- Charts powered via Chart.js with responsive layouts.
+
+### 📦 Models Extended
+- `ActivityTask`:
+  - `due_date` added
+  - New helper methods for weekly progress, overdue tasks, ratio stats.
+
+---

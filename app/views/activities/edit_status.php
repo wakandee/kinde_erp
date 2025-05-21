@@ -2,6 +2,7 @@
 
 <form method="POST" action="<?= $base_url ?>activities/update_status/<?= $task->task_id ?>">
     <p><strong>Task:</strong> <?= htmlspecialchars($task->task) ?></p>
+    <p><strong>Due Date:</strong> <?= htmlspecialchars($task->due_date) ?></p>
 
     <label for="status">Status:</label>
     <select name="status" id="status" required onchange="handleStatusChange(this.value)">
@@ -21,17 +22,24 @@
     <button type="submit">Update Status</button>
 </form>
 
+<br><br>
+<p><a href="<?= $base_url ?>activities">← Back to Activities</a></p>
+
 <script>
 function handleStatusChange(status) {
     const commentBox = document.getElementById('comment');
     const section = document.getElementById('commentSection');
+
     if (status === 'Done') {
-        commentBox.required = false;
+        commentBox.removeAttribute('required');
         section.style.display = 'none';
     } else {
-        commentBox.required = true;
+        commentBox.setAttribute('required', 'required');
         section.style.display = 'block';
     }
 }
+
+// Run on initial page load
 window.onload = () => handleStatusChange(document.getElementById('status').value);
 </script>
+

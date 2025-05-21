@@ -5,24 +5,37 @@ use App\Core\Database;
 
 class Activity
 {
-    public $id;
+        public $id;
     public $user_id;
     public $title;
     public $activity_date;
-    public $week;
+    public $week_number;
     public $created_at;
 
-    public static function create($title, $activity_date, $week_number, $user_id)
+    /**
+     * Create a new Activity record.
+     *
+     * @param string $title
+     * @param string $activity_date  YYYY-MM-DD
+     * @param int    $week_number    ISO week number
+     * @param int    $user_id        Creator user ID
+     * @return int|false             The new activity_id or false on failure
+     */
+    public static function create(string $title, string $activity_date, int $week_number, int $user_id)
     {
-        // var_dump($data); exit;
         $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO activities (user_id, title, activity_date, week_number) VALUES (?, ?, ?, ?)");
+        $stmt = $db->prepare(
+            "INSERT INTO activities (user_id, title, activity_date, week_number) VALUES (?, ?, ?, ?)"
+        );
+
         if ($stmt->execute([$user_id, $title, $activity_date, $week_number])) {
-            return $db->lastInsertId(); // ✅ Return the ID of the newly inserted row
+            return (int)$db->lastInsertId();
         }
 
         return false;
     }
+
+    
     // app/Models/Activity.php
 
     public static function getByUser($userId)
